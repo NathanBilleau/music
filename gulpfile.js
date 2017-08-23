@@ -6,7 +6,7 @@ var babel = require('gulp-babel')
 gulp.task('css', function(){
   return gulp.src('css/*.scss')
     .pipe(sass())
-    .pipe(gulp.dest('src/css/'))
+    .pipe(gulp.dest('public/css/'))
 })
 
 gulp.task('js', function(){
@@ -14,7 +14,7 @@ gulp.task('js', function(){
       .pipe(babel({
           presets: ['es2015', 'react']
       }))
-      .pipe(gulp.dest('src/js'));
+      .pipe(gulp.dest('public/js'));
 })
 
 gulp.task('components', function(){
@@ -22,7 +22,7 @@ gulp.task('components', function(){
       .pipe(babel({
           presets: ['es2015', 'react']
       }))
-      .pipe(gulp.dest('src/js/components'));
+      .pipe(gulp.dest('public/js/components'));
 })
 
 gulp.task('watch', function() {
