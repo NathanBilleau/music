@@ -4,7 +4,7 @@ var babel = require('gulp-babel')
 
 
 gulp.task('css', function(){
-  return gulp.src('css/*.scss')
+  return gulp.src('scss/*.scss')
     .pipe(sass())
     .pipe(gulp.dest('public/css/'))
 })
