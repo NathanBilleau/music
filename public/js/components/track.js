@@ -14,14 +14,6 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _fs = require('fs');
-
-var _fs2 = _interopRequireDefault(_fs);
-
-var _track = require('./track');
-
-var _track2 = _interopRequireDefault(_track);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -34,66 +26,49 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 // Components
 
 
-var List = function (_React$Component) {
-  _inherits(List, _React$Component);
+var Track = function (_React$Component) {
+  _inherits(Track, _React$Component);
 
-  function List() {
-    _classCallCheck(this, List);
+  function Track() {
+    _classCallCheck(this, Track);
 
-    var _this = _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).call(this));
+    var _this = _possibleConstructorReturn(this, (Track.__proto__ || Object.getPrototypeOf(Track)).call(this));
 
     _this.state = {};
     return _this;
   }
 
-  _createClass(List, [{
+  _createClass(Track, [{
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
         'div',
-        { className: 'mainSection list' },
+        { className: this.props.active === true ? 'track active' : 'track' },
         _react2.default.createElement(
-          'div',
-          { className: 'filter' },
-          _react2.default.createElement(
-            'label',
-            null,
-            _react2.default.createElement('input', { type: 'radio', name: 'filter', checked: true }),
-            _react2.default.createElement(
-              'span',
-              null,
-              'Title'
-            )
-          ),
-          _react2.default.createElement(
-            'label',
-            null,
-            _react2.default.createElement('input', { type: 'radio', name: 'filter' }),
-            _react2.default.createElement(
-              'span',
-              null,
-              'Artist'
-            )
-          ),
-          _react2.default.createElement(
-            'label',
-            null,
-            _react2.default.createElement('input', { type: 'radio', name: 'filter' }),
-            _react2.default.createElement(
-              'span',
-              null,
-              'Album'
-            )
-          )
+          'h1',
+          null,
+          this.props.title
         ),
-        _react2.default.createElement(_track2.default, { active: true, title: 'Another Brick in The Wall', artist: 'Pink Floyd', album: 'The Wall' }),
-        _react2.default.createElement(_track2.default, { active: false, title: 'I Shot the Sherif', artist: 'Bob Marley', album: 'Gold' }),
-        _react2.default.createElement(_track2.default, { active: false, title: 'Ramble On', artist: 'Led Zeppelin', album: 'MotherShip' })
+        _react2.default.createElement(
+          'h2',
+          null,
+          this.props.artist
+        ),
+        _react2.default.createElement(
+          'h3',
+          null,
+          this.props.album
+        ),
+        _react2.default.createElement(
+          'button',
+          null,
+          _react2.default.createElement('img', { src: 'img/play.svg' })
+        )
       );
     }
   }]);
 
-  return List;
+  return Track;
 }(_react2.default.Component);
 
-exports.default = List;
+exports.default = Track;

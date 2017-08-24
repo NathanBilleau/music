@@ -16,11 +16,35 @@ export default class Player extends React.Component {
     }
   }
 
+  previous() {
+
+  }
+
+  play() {
+
+  }
+
+  next() {
+
+  }
+
+
+  random() {
+
+  }
+
+  mute() {
+
+  }
+
+  folder() {
+
+  }
+
+
   render() {
     return (
       <div className="playerSection">
-
-        {/* Infos */}
 
         <div className="infos">
           <h1>
@@ -31,6 +55,8 @@ export default class Player extends React.Component {
             Pink Floyd
           </h2>
         </div>
+
+
 
 
 
@@ -46,7 +72,6 @@ export default class Player extends React.Component {
               3:45
             </span>
           </div>
-
 
           <div className="progressBar">
             <div className="progress gradient"></div>
@@ -69,7 +94,7 @@ export default class Player extends React.Component {
 
 
 
-        {/* Secondary controls container*/}
+
 
         <div className="controlsSecondaryContainer">
 

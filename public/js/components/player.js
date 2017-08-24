@@ -39,6 +39,24 @@ var Player = function (_React$Component) {
   }
 
   _createClass(Player, [{
+    key: 'previous',
+    value: function previous() {}
+  }, {
+    key: 'play',
+    value: function play() {}
+  }, {
+    key: 'next',
+    value: function next() {}
+  }, {
+    key: 'random',
+    value: function random() {}
+  }, {
+    key: 'mute',
+    value: function mute() {}
+  }, {
+    key: 'folder',
+    value: function folder() {}
+  }, {
     key: 'render',
     value: function render() {
       var _this2 = this;

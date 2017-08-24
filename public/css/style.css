@@ -9,7 +9,7 @@
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */ }
 
 .app {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   width: 100%;
   height: 100%; }
   .app > * {
@@ -20,7 +20,7 @@
     .app .mainContainer .main {
       width: 100%; }
   .app .topSection {
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 7px rgba(0, 0, 0, 0.2);
     height: 60px;
     position: relative; }
     .app .topSection .search {
@@ -48,7 +48,8 @@
       position: absolute;
       height: 100%;
       display: flex;
-      align-items: center; }
+      align-items: center;
+      margin-left: 15px; }
       .app .topSection .btnContainer button {
         padding: 0;
         border: none;
@@ -60,14 +61,13 @@
         .app .topSection .btnContainer button img {
           height: 100%; }
   .app .mainSection {
-    height: calc(100vh - 60px);
-    background: #5c0a57; }
+    height: calc(100vh - 60px); }
   .app .playerSection {
     width: calc(23% - 80px);
     height: calc(100vh - 40px);
     vertical-align: top;
     padding: 20px 40px;
-    box-shadow: -5px 0 10px rgba(0, 0, 0, 0.3);
+    box-shadow: -2px 0 7px rgba(0, 0, 0, 0.2);
     position: relative;
     display: inline-flex;
     flex-direction: column;
@@ -177,3 +177,44 @@
           cursor: pointer;
           -webkit-appearance: none;
           margin-top: -2.5px; }
+  .app .list {
+    width: calc(100% - 300px);
+    padding: 0 150px; }
+    .app .list .filter {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 31% 31% 31% 7%;
+      padding: 20px 0 5px; }
+      .app .list .filter input {
+        display: none; }
+      .app .list .filter :checked + span {
+        font-weight: 700; }
+      .app .list .filter label {
+        padding: 10px;
+        text-align: center;
+        font-weight: 100;
+        text-transform: uppercase;
+        font-size: .9em;
+        color: #333;
+        cursor: pointer; }
+    .app .list .track {
+      width: 100%;
+      padding: 15px;
+      margin: 5px 0;
+      background: #f3f3f3;
+      display: grid;
+      grid-template-columns: 31% 31% 31% 7%;
+      font-size: .9em;
+      font-weight: 300;
+      color: #333; }
+      .app .list .track button {
+        height: 1em;
+        padding: 0;
+        border: none;
+        background: none;
+        cursor: pointer;
+        outline: none; }
+        .app .list .track button img {
+          height: 100%; }
+      .app .list .track.active {
+        font-weight: 700; }
