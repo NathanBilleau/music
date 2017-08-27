@@ -12,6 +12,10 @@ $font: 'Montserrat', sans-serif;
 $shadowColor: rgba(0,0,0,0.2);
 $grey: #f3f3f3;
 
+body{
+  overflow: hidden;
+}
+
 .app {
   font-family: $font;
   width: 100%;
@@ -256,6 +260,7 @@ $grey: #f3f3f3;
   .list{
     width: calc(100% - 300px);
     padding: 0 150px;
+    overflow: auto;
 
     .filter{
       width: 100%;
@@ -290,7 +295,7 @@ $grey: #f3f3f3;
       background: $grey;
       display: grid;
       grid-template-columns: 31% 31% 31% 7%;
-      font-size: .9em;
+      font-size: .8em;
       font-weight: 300;
       color: #333;
 

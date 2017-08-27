@@ -18,6 +18,18 @@ var _fs = require('fs');
 
 var _fs2 = _interopRequireDefault(_fs);
 
+var _glob = require('glob');
+
+var _glob2 = _interopRequireDefault(_glob);
+
+var _path = require('path');
+
+var _path2 = _interopRequireDefault(_path);
+
+var _ffmetadata = require('ffmetadata');
+
+var _ffmetadata2 = _interopRequireDefault(_ffmetadata);
+
 var _track = require('./track');
 
 var _track2 = _interopRequireDefault(_track);
@@ -42,13 +54,41 @@ var List = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).call(this));
 
-    _this.state = {};
+    _this.state = {
+      files: [],
+      tracks: []
+    };
     return _this;
   }
 
   _createClass(List, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      (0, _glob2.default)('C:\\Users\\Nathan\\Music\\**\\*.mp3', function (err, files) {
+        _this2.setState({ files: files });
+
+        files.map(function (i) {
+          _ffmetadata2.default.read(i, function (err, data) {
+            if (err) console.error("Error reading metadata", err);else console.log(data);
+          });
+        });
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
+
+      var track = this.state.files.map(function (i) {
+        return _react2.default.createElement(_track2.default, {
+          key: i,
+          active: false,
+          title: _path2.default.parse(i).name,
+          artist: 'Pink Floyd',
+          album: 'The Wall' });
+      });
+
       return _react2.default.createElement(
         'div',
         { className: 'mainSection list' },
@@ -58,7 +98,7 @@ var List = function (_React$Component) {
           _react2.default.createElement(
             'label',
             null,
-            _react2.default.createElement('input', { type: 'radio', name: 'filter', checked: true }),
+            _react2.default.createElement('input', { type: 'radio', name: 'filter', defaultChecked: true }),
             _react2.default.createElement(
               'span',
               null,
@@ -86,9 +126,7 @@ var List = function (_React$Component) {
             )
           )
         ),
-        _react2.default.createElement(_track2.default, { active: true, title: 'Another Brick in The Wall', artist: 'Pink Floyd', album: 'The Wall' }),
-        _react2.default.createElement(_track2.default, { active: false, title: 'I Shot the Sherif', artist: 'Bob Marley', album: 'Gold' }),
-        _react2.default.createElement(_track2.default, { active: false, title: 'Ramble On', artist: 'Led Zeppelin', album: 'MotherShip' })
+        track
       );
     }
   }]);
