@@ -69,18 +69,24 @@ var List = function (_React$Component) {
       (0, _glob2.default)('C:\\Users\\Nathan\\Music\\**\\*.mp3', function (err, files) {
         _this2.setState({ files: files });
 
-        files.map(function (i) {
-          _ffmetadata2.default.read(i, function (err, data) {
-            if (err) console.error("Error reading metadata", err);else console.log(data);
-          });
-        });
+        // files.map(i => {
+        //   ffmetadata.read(i, function(err, data) {
+        //   	if (err) console.error("Error reading metadata", err)
+        //   	else console.log(data)
+        //   })
+        // })
       });
     }
   }, {
     key: 'render',
     value: function render() {
+      var _this3 = this;
 
-      var track = this.state.files.map(function (i) {
+      var selection = this.state.files.filter(function (item) {
+        return _path2.default.parse(item).name.toLowerCase().search(_this3.props.search) != -1;
+      });
+
+      var track = selection.map(function (i) {
         return _react2.default.createElement(_track2.default, {
           key: i,
           active: false,

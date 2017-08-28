@@ -25,20 +25,24 @@ export default class List extends React.Component {
     glob('C:\\Users\\Nathan\\Music\\**\\*.mp3', (err, files) => {
       this.setState({files})
 
-      files.map(i => {
-        ffmetadata.read(i, function(err, data) {
-        	if (err) console.error("Error reading metadata", err)
-        	else console.log(data)
-        })
-      })
-    })   
+      // files.map(i => {
+      //   ffmetadata.read(i, function(err, data) {
+      //   	if (err) console.error("Error reading metadata", err)
+      //   	else console.log(data)
+      //   })
+      // })
+    })
 
 
   }
 
   render() {
+    let selection = this.state.files.filter(item => {
+      return path.parse(item).name.toLowerCase().search(this.props.search) != -1
+    })
 
-    let track = this.state.files.map(i =>
+
+    let track = selection.map(i =>
       <Track
       key={i}
       active={false}

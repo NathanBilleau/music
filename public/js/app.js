@@ -46,11 +46,18 @@ var App = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this));
 
-    _this.state = {};
+    _this.state = {
+      search: 'help'
+    };
     return _this;
   }
 
   _createClass(App, [{
+    key: 'appState',
+    value: function appState(newState) {
+      this.setState(newState);
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
@@ -59,10 +66,10 @@ var App = function (_React$Component) {
         _react2.default.createElement(
           'div',
           { className: 'mainContainer' },
-          _react2.default.createElement(_top2.default, null),
-          _react2.default.createElement(_list2.default, null)
+          _react2.default.createElement(_top2.default, { appState: this.appState.bind(this) }),
+          _react2.default.createElement(_list2.default, { appState: this.appState.bind(this), search: this.state.search })
         ),
-        _react2.default.createElement(_player2.default, null)
+        _react2.default.createElement(_player2.default, { appState: this.appState.bind(this) })
       );
     }
   }]);

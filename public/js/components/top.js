@@ -39,8 +39,16 @@ var Top = function (_React$Component) {
   }
 
   _createClass(Top, [{
+    key: 'submit',
+    value: function submit() {
+      var searchField = document.getElementById('searchField').value.toLowerCase();
+      this.props.appState({ search: searchField });
+    }
+  }, {
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
       return _react2.default.createElement(
         'div',
         { className: 'topSection' },
@@ -61,10 +69,14 @@ var Top = function (_React$Component) {
         _react2.default.createElement(
           'div',
           { className: 'search' },
-          _react2.default.createElement('input', { type: 'text', placeholder: 'Music title' }),
+          _react2.default.createElement('input', { type: 'text', placeholder: 'Music title', id: 'searchField', onChange: function onChange() {
+              return _this2.submit();
+            } }),
           _react2.default.createElement(
             'button',
-            { className: 'gradient' },
+            { className: 'gradient', onClick: function onClick() {
+                return _this2.submit();
+              } },
             _react2.default.createElement('img', { src: './img/search.svg' })
           )
         )

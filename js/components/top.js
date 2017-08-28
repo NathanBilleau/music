@@ -16,10 +16,14 @@ export default class Top extends React.Component {
     }
   }
 
+  submit() {
+    let searchField = document.getElementById('searchField').value.toLowerCase()
+    this.props.appState({search: searchField})
+  }
+
   render() {
     return (
       <div className="topSection">
-
         <div className="btnContainer">
 
           <button>
@@ -31,20 +35,15 @@ export default class Top extends React.Component {
           </button>
 
         </div>
-
         <div className="search">
 
-          <input type="text" placeholder="Music title"/>
+          <input type="text" placeholder="Music title" id="searchField" onChange={() => this.submit()} />
 
-          <button className="gradient">
+          <button className="gradient" onClick={() => this.submit()}>
             <img src="./img/search.svg" />
           </button>
 
         </div>
-
-
-
-
       </div>
     )
   }

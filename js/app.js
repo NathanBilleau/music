@@ -14,8 +14,12 @@ class App extends React.Component {
   constructor (){
     super()
     this.state = {
-
+      search: 'help'
     }
+  }
+
+  appState(newState) {
+    this.setState(newState)
   }
 
   render() {
@@ -23,11 +27,11 @@ class App extends React.Component {
       <div className="app">
 
         <div className="mainContainer">
-          <Top />
-          <List />
+          <Top appState={this.appState.bind(this)}/>
+          <List appState={this.appState.bind(this)} search={this.state.search}/>
         </div>
 
-        <Player />
+        <Player appState={this.appState.bind(this)} />
 
       </div>
     )
