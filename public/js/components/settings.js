@@ -1,5 +1,9 @@
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
@@ -10,25 +14,13 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _top = require('./js/components/top');
+var _fs = require('fs');
 
-var _top2 = _interopRequireDefault(_top);
+var _fs2 = _interopRequireDefault(_fs);
 
-var _player = require('./js/components/player');
+var _path = require('path');
 
-var _player2 = _interopRequireDefault(_player);
-
-var _loading = require('./js/components/loading');
-
-var _loading2 = _interopRequireDefault(_loading);
-
-var _settings = require('./js/components/settings');
-
-var _settings2 = _interopRequireDefault(_settings);
-
-var _list = require('./js/components/list');
-
-var _list2 = _interopRequireDefault(_list);
+var _path2 = _interopRequireDefault(_path);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -42,47 +34,35 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 // Components
 
 
-var App = function (_React$Component) {
-  _inherits(App, _React$Component);
+var Settings = function (_React$Component) {
+  _inherits(Settings, _React$Component);
 
-  function App() {
-    _classCallCheck(this, App);
+  function Settings() {
+    _classCallCheck(this, Settings);
 
-    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this));
+    var _this = _possibleConstructorReturn(this, (Settings.__proto__ || Object.getPrototypeOf(Settings)).call(this));
 
-    _this.state = {
-      search: ' ',
-      main: 'loading'
-    };
+    _this.state = {};
     return _this;
   }
 
-  _createClass(App, [{
-    key: 'appState',
-    value: function appState(newState) {
-      this.setState(newState);
-    }
-  }, {
+  _createClass(Settings, [{
     key: 'render',
     value: function render() {
 
       return _react2.default.createElement(
         'div',
-        { className: 'app' },
+        { className: this.props.display === true ? "mainSection settings" : "mainSection settings hidden" },
         _react2.default.createElement(
-          'div',
-          { className: 'mainContainer' },
-          _react2.default.createElement(_top2.default, { appState: this.appState.bind(this) }),
-          _react2.default.createElement(_loading2.default, { appState: this.appState.bind(this), display: this.state.main === 'loading' ? true : false }),
-          _react2.default.createElement(_settings2.default, { appState: this.appState.bind(this), display: this.state.main === 'settings' ? true : false }),
-          _react2.default.createElement(_list2.default, { appState: this.appState.bind(this), search: this.state.search, display: this.state.main === 'list' ? true : false })
-        ),
-        _react2.default.createElement(_player2.default, { appState: this.appState.bind(this) })
+          'h1',
+          null,
+          'Settings'
+        )
       );
     }
   }]);
 
-  return App;
+  return Settings;
 }(_react2.default.Component);
 
-_reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById('app'));
+exports.default = Settings;

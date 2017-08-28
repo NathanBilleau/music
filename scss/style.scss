@@ -16,10 +16,16 @@ body{
   overflow: hidden;
 }
 
+
+.hidden{
+  display: none!important;
+}
+
 .app {
   font-family: $font;
   width: 100%;
   height: 100%;
+
 
   & > * {
     display: inline-block;
@@ -254,6 +260,21 @@ body{
       }
     }
 
+  }
+
+  .loading{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    img{
+      animation: 1s rotation infinite;
+    }
+
+    @keyframes rotation {
+      0%{transform: rotate(0)}
+      100%{transform: rotate(360deg)}
+    }
   }
 
 

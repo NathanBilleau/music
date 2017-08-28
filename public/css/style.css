@@ -11,6 +11,9 @@
 body {
   overflow: hidden; }
 
+.hidden {
+  display: none !important; }
+
 .app {
   font-family: "Montserrat", sans-serif;
   width: 100%;
@@ -180,6 +183,18 @@ body {
           cursor: pointer;
           -webkit-appearance: none;
           margin-top: -2.5px; }
+  .app .loading {
+    display: flex;
+    align-items: center;
+    justify-content: space-around; }
+    .app .loading img {
+      animation: 1s rotation infinite; }
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0); }
+  100% {
+    transform: rotate(360deg); } }
   .app .list {
     width: calc(100% - 300px);
     padding: 0 150px;

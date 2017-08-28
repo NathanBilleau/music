@@ -26,10 +26,6 @@ var _path = require('path');
 
 var _path2 = _interopRequireDefault(_path);
 
-var _ffmetadata = require('ffmetadata');
-
-var _ffmetadata2 = _interopRequireDefault(_ffmetadata);
-
 var _track = require('./track');
 
 var _track2 = _interopRequireDefault(_track);
@@ -68,13 +64,7 @@ var List = function (_React$Component) {
 
       (0, _glob2.default)('C:\\Users\\Nathan\\Music\\**\\*.mp3', function (err, files) {
         _this2.setState({ files: files });
-
-        // files.map(i => {
-        //   ffmetadata.read(i, function(err, data) {
-        //   	if (err) console.error("Error reading metadata", err)
-        //   	else console.log(data)
-        //   })
-        // })
+        _this2.props.appState({ main: 'list' });
       });
     }
   }, {
@@ -97,7 +87,7 @@ var List = function (_React$Component) {
 
       return _react2.default.createElement(
         'div',
-        { className: 'mainSection list' },
+        { className: this.props.display === true ? "mainSection list" : "mainSection list hidden" },
         _react2.default.createElement(
           'div',
           { className: 'filter' },

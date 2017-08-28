@@ -26,7 +26,7 @@ export default class Top extends React.Component {
       <div className="topSection">
         <div className="btnContainer">
 
-          <button>
+          <button onClick={() => this.props.appState({main: 'settings'})}>
             <img src="./img/settings.svg" />
           </button>
 

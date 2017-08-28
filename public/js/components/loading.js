@@ -43,8 +43,8 @@ var Loading = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        { className: 'mainSection' },
-        'main'
+        { className: this.props.display === true ? "mainSection loading" : "mainSection loading hidden" },
+        _react2.default.createElement('img', { src: './img/vinyl.svg' })
       );
     }
   }]);

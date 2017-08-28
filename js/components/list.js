@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom'
 import fs from 'fs'
 import glob from 'glob'
 import path from 'path'
-import ffmetadata from 'ffmetadata'
 
 // Components
 import Track from './track'
@@ -24,15 +23,8 @@ export default class List extends React.Component {
   componentDidMount() {
     glob('C:\\Users\\Nathan\\Music\\**\\*.mp3', (err, files) => {
       this.setState({files})
-
-      // files.map(i => {
-      //   ffmetadata.read(i, function(err, data) {
-      //   	if (err) console.error("Error reading metadata", err)
-      //   	else console.log(data)
-      //   })
-      // })
+      this.props.appState({main: 'list'})
     })
-
 
   }
 
@@ -48,11 +40,11 @@ export default class List extends React.Component {
       active={false}
       title={path.parse(i).name}
       artist="Pink Floyd"
-      album="The Wall"/>
+      album="The Wall" />
     )
 
     return (
-      <div className="mainSection list">
+      <div className={this.props.display === true ? "mainSection list" : "mainSection list hidden"}>
         <div className="filter">
           <label>
             <input type="radio" name="filter" defaultChecked/>

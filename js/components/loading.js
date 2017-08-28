@@ -18,8 +18,8 @@ export default class Loading extends React.Component {
 
   render() {
     return (
-      <div className="mainSection">
-        main
+      <div className={this.props.display === true ? "mainSection loading" : "mainSection loading hidden"} >
+        <img src="./img/vinyl.svg"/>
       </div>
     )
   }

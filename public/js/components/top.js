@@ -57,7 +57,9 @@ var Top = function (_React$Component) {
           { className: 'btnContainer' },
           _react2.default.createElement(
             'button',
-            null,
+            { onClick: function onClick() {
+                return _this2.props.appState({ main: 'settings' });
+              } },
             _react2.default.createElement('img', { src: './img/settings.svg' })
           ),
           _react2.default.createElement(
