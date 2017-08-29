@@ -1,26 +1,52 @@
 // Librairies
 import React from 'react'
 import ReactDOM from 'react-dom'
-
+import path from 'path'
+import {shell} from 'electron'
 // Components
 
 
-
+function secondsToMinutes(time){
+    return Math.floor(time / 60)+':'+Math.floor(time % 60);
+}
 
 export default class Player extends React.Component {
 
   constructor (){
     super()
     this.state = {
-
+      button: 'pause',
+      volume: 0.5,
+      duration: 0,
+      current: 0
     }
   }
+
+  componentDidMount() {
+    let audioPlayer = document.getElementById('audioPlayer')
+    let audioVolume = document.getElementById('audioVolume')
+    let progressBar = document.getElementById('progressBar')
+  }
+
 
   previous() {
 
   }
 
   play() {
+
+    if (audioPlayer.paused) {
+      audioPlayer.play()
+      this.setState({
+        button: 'pause'
+      })
+    }
+    else {
+      audioPlayer.pause()
+      this.setState({
+        button: 'play'
+      })
+    }
 
   }
 
@@ -34,21 +60,55 @@ export default class Player extends React.Component {
   }
 
   mute() {
+    if (audioPlayer.volume != 0) {
+      this.setState({
+        volume: 0
+      })
+      audioPlayer.volume = 0
+    }
+    else{
+      this.setState({
+        volume: 0.5
+      })
+      audioPlayer.volume = 0.5
+    }
 
   }
 
   folder() {
-
+    shell.showItemInFolder(this.props.song)
   }
 
+  volume() {
+    this.setState({
+      volume: audioVolume.value
+    })
+
+
+    audioPlayer.volume = this.state.volume
+  }
+
+  progress() {
+    let duration = audioPlayer.duration
+    let current = audioPlayer.currentTime
+
+    progressBar.style.width = current / duration * 100 + "%"
+
+    this.setState({
+      duration,
+      current
+    })
+  }
 
   render() {
     return (
       <div className="playerSection">
 
+        <audio src={this.props.song} className="hidden" id="audioPlayer" autoPlay onTimeUpdate={() => this.progress()}></audio>
+
         <div className="infos">
           <h1>
-            Another brick in the wall
+            {path.parse(this.props.song).name}
           </h1>
 
           <h2>
@@ -61,20 +121,20 @@ export default class Player extends React.Component {
 
 
         <div className="player">
-          <div className="cover" style={{backgroundImage: "url('img/cover.jpg')"}}></div>
+          {/* <div className="cover" style={{backgroundImage: "url('img/cover.jpg')"}}></div> */}
 
           <div className="time">
             <span>
-              0:00
+              {secondsToMinutes(this.state.current)}
             </span>
             /
             <span>
-              3:45
+              {secondsToMinutes(this.state.duration)}
             </span>
           </div>
 
           <div className="progressBar">
-            <div className="progress gradient"></div>
+            <div className="progress gradient" id="progressBar"></div>
           </div>
 
           <div className="controls">
@@ -83,7 +143,7 @@ export default class Player extends React.Component {
             </button>
 
             <button onClick={() => this.play()}>
-              <img src="./img/play.svg" />
+              <img src={"./img/" + this.state.button + ".svg"} />
             </button>
 
             <button onClick={() => this.next()}>
@@ -114,7 +174,7 @@ export default class Player extends React.Component {
 
 
           <div className="volume">
-            <input type="range" min="0" max="100" />
+            <input type="range" min="0" max="1" step="0.001" value={this.state.volume} id="audioVolume" onChange={() => this.volume()}/>
           </div>
 
         </div>

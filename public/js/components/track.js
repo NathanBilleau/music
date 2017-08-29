@@ -14,6 +14,10 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
+var _path = require('path');
+
+var _path2 = _interopRequireDefault(_path);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -39,29 +43,40 @@ var Track = function (_React$Component) {
   }
 
   _createClass(Track, [{
+    key: 'play',
+    value: function play() {
+      this.props.appState({
+        song: this.props.path
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
       return _react2.default.createElement(
         'div',
         { className: this.props.active === true ? 'track active' : 'track' },
         _react2.default.createElement(
           'h1',
           null,
-          this.props.title
+          _path2.default.parse(this.props.path).name
         ),
         _react2.default.createElement(
           'h2',
           null,
-          this.props.artist
+          '"artist"'
         ),
         _react2.default.createElement(
           'h3',
           null,
-          this.props.album
+          '"album"'
         ),
         _react2.default.createElement(
           'button',
-          null,
+          { onClick: function onClick() {
+              return _this2.play();
+            } },
           _react2.default.createElement('img', { src: 'img/play.svg' })
         )
       );

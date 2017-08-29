@@ -1,6 +1,7 @@
 // Librairies
 import React from 'react'
 import ReactDOM from 'react-dom'
+import path from 'path'
 
 // Components
 
@@ -16,22 +17,28 @@ export default class Track extends React.Component {
     }
   }
 
+  play() {
+    this.props.appState({
+      song: this.props.path
+    })
+  }
+
   render() {
     return (
       <div className={this.props.active === true ? 'track active' : 'track'}>
         <h1>
-          {this.props.title}
+          {path.parse(this.props.path).name}
         </h1>
 
         <h2>
-          {this.props.artist}
+          "artist"
         </h2>
 
         <h3>
-          {this.props.album}
+          "album"
         </h3>
 
-        <button>
+        <button onClick={() => this.play()}>
           <img src="img/play.svg" />
         </button>
       </div>

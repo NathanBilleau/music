@@ -79,10 +79,9 @@ var List = function (_React$Component) {
       var track = selection.map(function (i) {
         return _react2.default.createElement(_track2.default, {
           key: i,
-          active: false,
-          title: _path2.default.parse(i).name,
-          artist: 'Pink Floyd',
-          album: 'The Wall' });
+          appState: _this3.props.appState,
+          path: i,
+          active: false });
       });
 
       return _react2.default.createElement(

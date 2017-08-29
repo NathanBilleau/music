@@ -17,7 +17,8 @@ class App extends React.Component {
     this.state = {
       search: ' ',
       main: 'loading',
-      color: 'TealLove'
+      color: 'TealLove',
+      song: ''
     }
   }
 
@@ -37,7 +38,7 @@ class App extends React.Component {
           <List appState={this.appState.bind(this)} search={this.state.search} display={this.state.main === 'list' ? true : false} />
         </div>
 
-        <Player appState={this.appState.bind(this)} />
+        <Player appState={this.appState.bind(this)} song={this.state.song}/>
 
       </div>
     )
