@@ -8,6 +8,58 @@ background: linear-gradient(to left, #11FFBD, #AAFFA9); /* W3C, IE 10+/ Edge, Fi
 
 }
 
+@mixin TealLove () {
+  background: #AAFFA9;
+  background: -webkit-linear-gradient(to left, #11FFBD, #AAFFA9);
+  background: linear-gradient(to left, #11FFBD, #AAFFA9);
+}
+
+@mixin Reef () {
+  background: #00d2ff;
+  background: -webkit-linear-gradient(to right, #00d2ff, #3a7bd5);
+  background: linear-gradient(to right, #00d2ff, #3a7bd5);
+}
+
+@mixin LightOrange () {
+  background: #FFB75E;
+  background: -webkit-linear-gradient(to right, #ED8F03, #FFB75E);
+  background: linear-gradient(to right, #ED8F03, #FFB75E);
+}
+
+.color{
+
+  .TealLove{
+    @include TealLove();
+  }
+
+  .Reef{
+    @include Reef();
+  }
+
+  .LightOrange{
+    @include LightOrange();
+  }
+
+}
+
+.TealLove{
+  .gradient{
+    @include TealLove();
+  }
+}
+
+.Reef{
+  .gradient{
+    @include Reef();
+  }
+}
+
+.LightOrange{
+  .gradient{
+    @include LightOrange();
+  }
+}
+
 $font: 'Montserrat', sans-serif;
 $shadowColor: rgba(0,0,0,0.2);
 $grey: #f3f3f3;
@@ -277,6 +329,85 @@ body{
     }
   }
 
+  .settings{
+    width: calc(100% - 500px);
+    padding: 0 250px;
+
+    h1{
+      font-family: $font;
+      font-weight: 100;
+      color: #333;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 50px 0;
+      font-size: 2em;
+    }
+
+    h2{
+      font-weight: 700;
+      color: #333;
+      padding: 30px 0 0;
+    }
+
+    label{
+      cursor:pointer;
+    }
+
+    label.browse{
+      display: block;
+      width: 70%;
+      height: 50px;
+      background: #333;
+      margin: 30px auto;
+
+      span{
+        font-family: $font;
+        padding: 0 15px;
+        color: #fff;
+        font-weight: 100;
+        font-size: 1.2em;
+      }
+
+      img{
+        padding: 15px;
+        height: 20px;
+        vertical-align: middle;
+        background: #424141;
+        transition: .1s;
+      }
+
+      &:hover{
+        img {
+          padding: 15px 20px;
+        }
+      }
+    }
+
+    .colorContainer{
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      width: 70%;
+      height: 50px;
+      margin: 30px auto;
+
+      input:checked + div{
+        border: 5px solid #333;
+      }
+
+      label {
+
+        div{
+          transition: .1s;
+          width: 50px;
+          height: 50px;
+          border-radius: 50px;
+        }
+      }
+    }
+
+  }
+
 
   .list{
     width: calc(100% - 300px);
@@ -298,8 +429,8 @@ body{
       }
 
       label{
-        padding: 10px;
-        text-align: center;
+        padding: 10px 15px;
+        text-align: left;
         font-weight: 100;
         text-transform: uppercase;
         font-size: .9em;

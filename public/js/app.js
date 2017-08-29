@@ -52,7 +52,8 @@ var App = function (_React$Component) {
 
     _this.state = {
       search: ' ',
-      main: 'loading'
+      main: 'loading',
+      color: 'TealLove'
     };
     return _this;
   }
@@ -68,7 +69,7 @@ var App = function (_React$Component) {
 
       return _react2.default.createElement(
         'div',
-        { className: 'app' },
+        { className: "app " + this.state.color },
         _react2.default.createElement(
           'div',
           { className: 'mainContainer' },

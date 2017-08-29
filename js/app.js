@@ -16,7 +16,8 @@ class App extends React.Component {
     super()
     this.state = {
       search: ' ',
-      main: 'loading'
+      main: 'loading',
+      color: 'TealLove'
     }
   }
 
@@ -27,7 +28,7 @@ class App extends React.Component {
   render() {
 
     return (
-      <div className="app">
+      <div className={"app " + this.state.color}>
 
         <div className="mainContainer">
           <Top appState={this.appState.bind(this)} />

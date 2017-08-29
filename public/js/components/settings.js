@@ -49,6 +49,7 @@ var Settings = function (_React$Component) {
   _createClass(Settings, [{
     key: 'render',
     value: function render() {
+      var _this2 = this;
 
       return _react2.default.createElement(
         'div',
@@ -57,6 +58,55 @@ var Settings = function (_React$Component) {
           'h1',
           null,
           'Settings'
+        ),
+        _react2.default.createElement(
+          'h2',
+          null,
+          'Music location'
+        ),
+        _react2.default.createElement(
+          'label',
+          { className: 'browse' },
+          _react2.default.createElement('input', { type: 'file', className: 'hidden' }),
+          _react2.default.createElement('img', { src: './img/folder.svg' }),
+          _react2.default.createElement(
+            'span',
+            null,
+            'browse'
+          )
+        ),
+        _react2.default.createElement(
+          'h2',
+          null,
+          'Color'
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'colorContainer' },
+          _react2.default.createElement(
+            'label',
+            { className: 'color' },
+            _react2.default.createElement('input', { type: 'radio', name: 'color', className: 'hidden', value: 'TealLove', defaultChecked: true, onClick: function onClick() {
+                return _this2.props.appState({ color: 'TealLove' });
+              } }),
+            _react2.default.createElement('div', { className: 'TealLove' })
+          ),
+          _react2.default.createElement(
+            'label',
+            { className: 'color' },
+            _react2.default.createElement('input', { type: 'radio', name: 'color', className: 'hidden', value: 'Reef', onClick: function onClick() {
+                return _this2.props.appState({ color: 'Reef' });
+              } }),
+            _react2.default.createElement('div', { className: 'Reef' })
+          ),
+          _react2.default.createElement(
+            'label',
+            { className: 'color' },
+            _react2.default.createElement('input', { type: 'radio', name: 'color', className: 'hidden', value: 'LightOrange', onClick: function onClick() {
+                return _this2.props.appState({ color: 'LightOrange' });
+              } }),
+            _react2.default.createElement('div', { className: 'LightOrange' })
+          )
         )
       );
     }
