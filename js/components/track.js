@@ -28,13 +28,16 @@ export default class Track extends React.Component {
       let title = meta.title
       let album = meta.album
       let artist = meta.albumartist[0]
+      let picture = meta.picture[0].data
+
 
       this.setState({
         song: {
           path: this.props.path,
           title,
           album,
-          artist
+          artist,
+          picture
         }
       })
 
@@ -44,12 +47,33 @@ export default class Track extends React.Component {
   }
 
   play() {
+
+    if (this.state.song.picture.length != 0) {
+      
+      let coverFile = __dirname + '/../../img/cover/' + this.state.song.album + '.png'
+      let coverFileTmp = __dirname + '/../../img/cover.png'
+
+      fs.writeFile(coverFileTmp, this.state.song.picture, (err) => {
+        console.log(err)
+
+        fs.createReadStream(coverFileTmp).pipe(
+          fs.createWriteStream(coverFile)
+        )
+
+      })
+
+    }
+
+
+
     this.props.appState({
       song: this.state.song
     })
   }
 
   render() {
+
+
     return (
       <div className={this.props.active === true ? 'track active' : 'track'}>
         <h1>

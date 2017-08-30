@@ -28,6 +28,7 @@ export default class Player extends React.Component {
     let audioSeek = document.getElementById('audioSeek')
 
     audioPlayer.volume = this.state.volume
+    cover.style.backgroundImage = 'url("./img/cover/undefined.png")'
   }
 
 
@@ -36,7 +37,6 @@ export default class Player extends React.Component {
   }
 
   play() {
-
     if (audioPlayer.paused) {
       audioPlayer.play()
       this.setState({
@@ -94,6 +94,9 @@ export default class Player extends React.Component {
     let duration = audioPlayer.duration
     let current = audioPlayer.currentTime
 
+    cover.style.backgroundImage = 'none'
+    cover.style.backgroundImage = 'url("./img/cover/' + this.props.song.album + '.png")'
+
     this.setState({
       duration,
       current
@@ -126,7 +129,7 @@ export default class Player extends React.Component {
 
 
         <div className="player">
-          {/* <div className="cover" style={{backgroundImage: "url('img/cover.jpg')"}}></div> */}
+          <div className="cover" id="cover" ></div>
 
           <div className="time">
             <span>

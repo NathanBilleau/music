@@ -65,13 +65,15 @@ var Track = function (_React$Component) {
         var title = meta.title;
         var album = meta.album;
         var artist = meta.albumartist[0];
+        var picture = meta.picture[0].data;
 
         _this2.setState({
           song: {
             path: _this2.props.path,
             title: title,
             album: album,
-            artist: artist
+            artist: artist,
+            picture: picture
           }
         });
 
@@ -81,6 +83,19 @@ var Track = function (_React$Component) {
   }, {
     key: 'play',
     value: function play() {
+
+      if (this.state.song.picture.length != 0) {
+
+        var coverFile = __dirname + '/../../img/cover/' + this.state.song.album + '.png';
+        var coverFileTmp = __dirname + '/../../img/cover.png';
+
+        _fs2.default.writeFile(coverFileTmp, this.state.song.picture, function (err) {
+          console.log(err);
+
+          _fs2.default.createReadStream(coverFileTmp).pipe(_fs2.default.createWriteStream(coverFile));
+        });
+      }
+
       this.props.appState({
         song: this.state.song
       });

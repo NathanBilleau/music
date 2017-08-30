@@ -18,7 +18,7 @@ class App extends React.Component {
       search: ' ',
       main: 'loading',
       color: 'TealLove',
-      song: ''
+      song: {}
     }
   }
 

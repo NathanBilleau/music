@@ -68,7 +68,6 @@ var Player = function (_React$Component) {
   }, {
     key: 'play',
     value: function play() {
-
       if (audioPlayer.paused) {
         audioPlayer.play();
         this.setState({
@@ -105,7 +104,7 @@ var Player = function (_React$Component) {
   }, {
     key: 'folder',
     value: function folder() {
-      _electron.shell.showItemInFolder(this.props.song);
+      _electron.shell.showItemInFolder(this.props.song.path);
     }
   }, {
     key: 'volume',
@@ -121,6 +120,9 @@ var Player = function (_React$Component) {
     value: function progress() {
       var duration = audioPlayer.duration;
       var current = audioPlayer.currentTime;
+
+      cover.style.backgroundImage = 'none';
+      cover.style.backgroundImage = 'url("./img/cover/' + this.props.song.album + '.png")';
 
       this.setState({
         duration: duration,
@@ -161,6 +163,7 @@ var Player = function (_React$Component) {
         _react2.default.createElement(
           'div',
           { className: 'player' },
+          _react2.default.createElement('div', { className: 'cover', id: 'cover' }),
           _react2.default.createElement(
             'div',
             { className: 'time' },

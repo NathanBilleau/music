@@ -51,8 +51,7 @@ var List = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).call(this));
 
     _this.state = {
-      files: [],
-      tracks: []
+      files: []
     };
     return _this;
   }

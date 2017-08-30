@@ -36,7 +36,6 @@ export default class Player extends React.Component {
   }
 
   play() {
-
     if (audioPlayer.paused) {
       audioPlayer.play()
       this.setState({
@@ -78,7 +77,7 @@ export default class Player extends React.Component {
   }
 
   folder() {
-    shell.showItemInFolder(this.props.song)
+    shell.showItemInFolder(this.props.song.path)
   }
 
   volume() {
@@ -93,6 +92,9 @@ export default class Player extends React.Component {
   progress() {
     let duration = audioPlayer.duration
     let current = audioPlayer.currentTime
+
+    cover.style.backgroundImage = 'none'
+    cover.style.backgroundImage = 'url("./img/cover/' + this.props.song.album + '.png")'
 
     this.setState({
       duration,
@@ -126,7 +128,7 @@ export default class Player extends React.Component {
 
 
         <div className="player">
-          {/* <div className="cover" style={{backgroundImage: "url('img/cover.jpg')"}}></div> */}
+          <div className="cover" id="cover" ></div>
 
           <div className="time">
             <span>

@@ -57,21 +57,42 @@ var Track = function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      (0, _musicmetadata2.default)(_fs2.default.createReadStream(this.props.path), function (err, meta) {
+      var stream = _fs2.default.createReadStream(this.props.path);
+
+      (0, _musicmetadata2.default)(stream, function (err, meta) {
         if (err) throw err;
+
+        var title = meta.title;
+        var album = meta.album;
+        var artist = meta.albumartist[0];
+        var picture = meta.picture[0].data;
+
         _this2.setState({
           song: {
             path: _this2.props.path,
-            title: meta.title,
-            album: meta.album,
-            artist: meta.albumartist[0]
+            title: title,
+            album: album,
+            artist: artist,
+            picture: picture
           }
         });
+
+        stream.close();
       });
     }
   }, {
     key: 'play',
     value: function play() {
+
+      var coverFile = __dirname + '/../../img/cover/' + this.state.song.album + '.png';
+      var coverFileTmp = __dirname + '/../../img/cover.png';
+
+      _fs2.default.writeFile(coverFileTmp, this.state.song.picture, function (err) {
+        console.log(err);
+
+        _fs2.default.createReadStream(coverFileTmp).pipe(_fs2.default.createWriteStream(coverFile));
+      });
+
       this.props.appState({
         song: this.state.song
       });
