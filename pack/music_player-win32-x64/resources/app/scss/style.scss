@@ -179,12 +179,12 @@ body{
     }
 
     h1{
-      font-size: 2.5em;
+      font-size: 2.3em;
       font-weight: 900;
     }
 
     h2{
-      font-size: 1.3em;
+      font-size: 1em;
       font-weight: 100;
       padding: 20px 0;
     }
@@ -211,20 +211,89 @@ body{
       font-weight: 100;
     }
 
-    .progressBar{
-      width: 90%;
-      height: 7px;
-      margin:auto;
-      background: #333;
-      border-radius: 10px;
-      position: relative;
-      overflow: hidden;
-
-      .progress{
-        width: 70%;
-        height: 100%;
-      }
+    input[type=range].progressbar {
+      -webkit-appearance: none;
+      width: 100%;
+      margin: 1.3px 0;
     }
+    input[type=range].progressbar:focus {
+      outline: none;
+    }
+    input[type=range].progressbar::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 7.4px;
+      cursor: pointer;
+      box-shadow: 1px 1px 1px rgba(0, 0, 0, 0), 0px 0px 1px rgba(13, 13, 13, 0);
+      background: #333;
+      border-radius: 25px;
+      border: 0px solid rgba(0, 1, 1, 0);
+    }
+    input[type=range].progressbar::-webkit-slider-thumb {
+      box-shadow: 1px 1px 5px #000000, 0px 0px 1px #0d0d0d;
+      border: 0px solid rgba(170, 255, 169, 0);
+      height: 10px;
+      width: 10px;
+      border-radius: 13px;
+      background: #aaffa9;
+      cursor: pointer;
+      -webkit-appearance: none;
+      margin-top: -1.3px;
+    }
+    input[type=range].progressbar::-moz-range-track {
+      width: 100%;
+      height: 7.4px;
+      cursor: pointer;
+      box-shadow: 1px 1px 1px rgba(0, 0, 0, 0), 0px 0px 1px rgba(13, 13, 13, 0);
+      background: #7d7d7d;
+      border-radius: 25px;
+      border: 0px solid rgba(0, 1, 1, 0);
+    }
+    input[type=range].progressbar::-moz-range-thumb {
+      box-shadow: 1px 1px 9px #000000, 0px 0px 1px #0d0d0d;
+      border: 0px solid rgba(170, 255, 169, 0);
+      height: 10px;
+      width: 10px;
+      border-radius: 13px;
+      background: #aaffa9;
+      cursor: pointer;
+    }
+    input[type=range].progressbar::-ms-track {
+      width: 100%;
+      height: 7.4px;
+      cursor: pointer;
+      background: transparent;
+      border-color: transparent;
+      color: transparent;
+    }
+    input[type=range].progressbar::-ms-fill-lower {
+      background: #7d7d7d;
+      border: 0px solid rgba(0, 1, 1, 0);
+      border-radius: 50px;
+      box-shadow: 1px 1px 1px rgba(0, 0, 0, 0), 0px 0px 1px rgba(13, 13, 13, 0);
+    }
+    input[type=range].progressbar::-ms-fill-upper {
+      background: #7d7d7d;
+      border: 0px solid rgba(0, 1, 1, 0);
+      border-radius: 50px;
+      box-shadow: 1px 1px 1px rgba(0, 0, 0, 0), 0px 0px 1px rgba(13, 13, 13, 0);
+    }
+    input[type=range].progressbar::-ms-thumb {
+      box-shadow: 1px 1px 9px #000000, 0px 0px 1px #0d0d0d;
+      border: 0px solid rgba(170, 255, 169, 0);
+      height: 10px;
+      width: 10px;
+      border-radius: 13px;
+      background: #aaffa9;
+      cursor: pointer;
+      height: 7.4px;
+    }
+    input[type=range].progressbar:focus::-ms-fill-lower {
+      background: #7d7d7d;
+    }
+    input[type=range].progressbar:focus::-ms-fill-upper {
+      background: #7d7d7d;
+    }
+
 
     .controls{
       display: flex;

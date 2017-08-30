@@ -14,6 +14,12 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
+var _path = require('path');
+
+var _path2 = _interopRequireDefault(_path);
+
+var _electron = require('electron');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -26,6 +32,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 // Components
 
 
+function secondsToMinutes(time) {
+  return Math.floor(time / 60) + ':' + Math.floor(time % 60);
+}
+
 var Player = function (_React$Component) {
   _inherits(Player, _React$Component);
 
@@ -34,16 +44,43 @@ var Player = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (Player.__proto__ || Object.getPrototypeOf(Player)).call(this));
 
-    _this.state = {};
+    _this.state = {
+      button: 'pause',
+      volume: 0.3,
+      duration: 0,
+      current: 0
+    };
     return _this;
   }
 
   _createClass(Player, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var audioPlayer = document.getElementById('audioPlayer');
+      var audioVolume = document.getElementById('audioVolume');
+      var audioSeek = document.getElementById('audioSeek');
+
+      audioPlayer.volume = this.state.volume;
+    }
+  }, {
     key: 'previous',
     value: function previous() {}
   }, {
     key: 'play',
-    value: function play() {}
+    value: function play() {
+
+      if (audioPlayer.paused) {
+        audioPlayer.play();
+        this.setState({
+          button: 'pause'
+        });
+      } else {
+        audioPlayer.pause();
+        this.setState({
+          button: 'play'
+        });
+      }
+    }
   }, {
     key: 'next',
     value: function next() {}
@@ -52,10 +89,50 @@ var Player = function (_React$Component) {
     value: function random() {}
   }, {
     key: 'mute',
-    value: function mute() {}
+    value: function mute() {
+      if (audioPlayer.volume != 0) {
+        this.setState({
+          volume: 0
+        });
+        audioPlayer.volume = 0;
+      } else {
+        this.setState({
+          volume: 0.5
+        });
+        audioPlayer.volume = 0.5;
+      }
+    }
   }, {
     key: 'folder',
-    value: function folder() {}
+    value: function folder() {
+      _electron.shell.showItemInFolder(this.props.song);
+    }
+  }, {
+    key: 'volume',
+    value: function volume() {
+      this.setState({
+        volume: audioVolume.value
+      });
+
+      audioPlayer.volume = this.state.volume;
+    }
+  }, {
+    key: 'progress',
+    value: function progress() {
+      var duration = audioPlayer.duration;
+      var current = audioPlayer.currentTime;
+
+      this.setState({
+        duration: duration,
+        current: current
+      });
+    }
+  }, {
+    key: 'seek',
+    value: function seek() {
+      var seek = audioSeek.value;
+      audioPlayer.currentTime = seek;
+    }
   }, {
     key: 'render',
     value: function render() {
@@ -64,13 +141,16 @@ var Player = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         { className: 'playerSection' },
+        _react2.default.createElement('audio', { src: this.props.song, className: 'hidden', id: 'audioPlayer', autoPlay: true, onTimeUpdate: function onTimeUpdate() {
+            return _this2.progress();
+          } }),
         _react2.default.createElement(
           'div',
           { className: 'infos' },
           _react2.default.createElement(
             'h1',
             null,
-            'Another brick in the wall'
+            _path2.default.parse(this.props.song).name
           ),
           _react2.default.createElement(
             'h2',
@@ -81,27 +161,24 @@ var Player = function (_React$Component) {
         _react2.default.createElement(
           'div',
           { className: 'player' },
-          _react2.default.createElement('div', { className: 'cover', style: { backgroundImage: "url('img/cover.jpg')" } }),
           _react2.default.createElement(
             'div',
             { className: 'time' },
             _react2.default.createElement(
               'span',
               null,
-              '0:00'
+              secondsToMinutes(this.state.current)
             ),
             '/',
             _react2.default.createElement(
               'span',
               null,
-              '3:45'
+              secondsToMinutes(this.state.duration)
             )
           ),
-          _react2.default.createElement(
-            'div',
-            { className: 'progressBar' },
-            _react2.default.createElement('div', { className: 'progress gradient' })
-          ),
+          _react2.default.createElement('input', { type: 'range', min: '0', max: this.state.duration, id: 'audioSeek', className: 'progressbar', value: this.state.current, onChange: function onChange() {
+              return _this2.seek();
+            } }),
           _react2.default.createElement(
             'div',
             { className: 'controls' },
@@ -117,7 +194,7 @@ var Player = function (_React$Component) {
               { onClick: function onClick() {
                   return _this2.play();
                 } },
-              _react2.default.createElement('img', { src: './img/play.svg' })
+              _react2.default.createElement('img', { src: "./img/" + this.state.button + ".svg" })
             ),
             _react2.default.createElement(
               'button',
@@ -159,7 +236,9 @@ var Player = function (_React$Component) {
           _react2.default.createElement(
             'div',
             { className: 'volume' },
-            _react2.default.createElement('input', { type: 'range', min: '0', max: '100' })
+            _react2.default.createElement('input', { type: 'range', min: '0', max: '1', step: '0.001', value: this.state.volume, id: 'audioVolume', onChange: function onChange() {
+                return _this2.volume();
+              } })
           )
         )
       );

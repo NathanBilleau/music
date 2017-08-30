@@ -37,10 +37,9 @@ export default class List extends React.Component {
     let track = selection.map(i =>
       <Track
       key={i}
-      active={false}
-      title={path.parse(i).name}
-      artist="Pink Floyd"
-      album="The Wall" />
+      appState={this.props.appState}
+      path={i}
+      active={false} />
     )
 
     return (
