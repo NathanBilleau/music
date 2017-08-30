@@ -47,6 +47,13 @@ var Settings = function (_React$Component) {
   }
 
   _createClass(Settings, [{
+    key: 'close',
+    value: function close() {
+      this.props.appState({
+        main: 'list'
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
@@ -54,6 +61,13 @@ var Settings = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         { className: this.props.display === true ? "mainSection settings" : "mainSection settings hidden" },
+        _react2.default.createElement(
+          'button',
+          { className: 'closeBtn', onClick: function onClick() {
+              return _this2.close();
+            } },
+          _react2.default.createElement('img', { src: './img/close.svg' })
+        ),
         _react2.default.createElement(
           'h1',
           null,

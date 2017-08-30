@@ -401,6 +401,29 @@ body{
   .settings{
     width: calc(100% - 500px);
     padding: 0 250px;
+    position: relative;
+
+    .closeBtn{
+      background: none;
+      border: none;
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 50px;
+      width: 50px;
+      margin: 20px;
+      cursor: pointer;
+      transition: .1s;
+      outline: none;
+
+      &:hover{
+        transform: scale(1.1);
+      }
+
+      img{
+        height: 100%;
+      }
+    }
 
     h1{
       font-family: $font;

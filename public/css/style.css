@@ -286,7 +286,24 @@ body {
     transform: rotate(360deg); } }
   .app .settings {
     width: calc(100% - 500px);
-    padding: 0 250px; }
+    padding: 0 250px;
+    position: relative; }
+    .app .settings .closeBtn {
+      background: none;
+      border: none;
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 50px;
+      width: 50px;
+      margin: 20px;
+      cursor: pointer;
+      transition: .1s;
+      outline: none; }
+      .app .settings .closeBtn:hover {
+        transform: scale(1.1); }
+      .app .settings .closeBtn img {
+        height: 100%; }
     .app .settings h1 {
       font-family: "Montserrat", sans-serif;
       font-weight: 100;

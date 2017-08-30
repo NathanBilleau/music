@@ -18,11 +18,21 @@ export default class Settings extends React.Component {
     }
   }
 
+  close() {
+    this.props.appState({
+      main: 'list'
+    })
+  }
+
 
   render() {
 
     return (
       <div className={this.props.display === true ? "mainSection settings" : "mainSection settings hidden"}>
+
+        <button className="closeBtn" onClick={() => this.close()}>
+          <img src="./img/close.svg" />
+        </button>
 
         <h1>Settings</h1>
 
