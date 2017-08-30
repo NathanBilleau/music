@@ -46,7 +46,7 @@ var Player = function (_React$Component) {
 
     _this.state = {
       button: 'pause',
-      volume: 0.5,
+      volume: 0.3,
       duration: 0,
       current: 0
     };
@@ -58,7 +58,9 @@ var Player = function (_React$Component) {
     value: function componentDidMount() {
       var audioPlayer = document.getElementById('audioPlayer');
       var audioVolume = document.getElementById('audioVolume');
-      var progressBar = document.getElementById('progressBar');
+      var audioSeek = document.getElementById('audioSeek');
+
+      audioPlayer.volume = this.state.volume;
     }
   }, {
     key: 'previous',
@@ -120,12 +122,16 @@ var Player = function (_React$Component) {
       var duration = audioPlayer.duration;
       var current = audioPlayer.currentTime;
 
-      progressBar.style.width = current / duration * 100 + "%";
-
       this.setState({
         duration: duration,
         current: current
       });
+    }
+  }, {
+    key: 'seek',
+    value: function seek() {
+      var seek = audioSeek.value;
+      audioPlayer.currentTime = seek;
     }
   }, {
     key: 'render',
@@ -170,11 +176,9 @@ var Player = function (_React$Component) {
               secondsToMinutes(this.state.duration)
             )
           ),
-          _react2.default.createElement(
-            'div',
-            { className: 'progressBar' },
-            _react2.default.createElement('div', { className: 'progress gradient', id: 'progressBar' })
-          ),
+          _react2.default.createElement('input', { type: 'range', min: '0', max: this.state.duration, id: 'audioSeek', className: 'progressbar', value: this.state.current, onChange: function onChange() {
+              return _this2.seek();
+            } }),
           _react2.default.createElement(
             'div',
             { className: 'controls' },

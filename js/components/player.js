@@ -16,7 +16,7 @@ export default class Player extends React.Component {
     super()
     this.state = {
       button: 'pause',
-      volume: 0.5,
+      volume: 0.3,
       duration: 0,
       current: 0
     }
@@ -25,7 +25,9 @@ export default class Player extends React.Component {
   componentDidMount() {
     let audioPlayer = document.getElementById('audioPlayer')
     let audioVolume = document.getElementById('audioVolume')
-    let progressBar = document.getElementById('progressBar')
+    let audioSeek = document.getElementById('audioSeek')
+
+    audioPlayer.volume = this.state.volume
   }
 
 
@@ -92,12 +94,15 @@ export default class Player extends React.Component {
     let duration = audioPlayer.duration
     let current = audioPlayer.currentTime
 
-    progressBar.style.width = current / duration * 100 + "%"
-
     this.setState({
       duration,
       current
     })
+  }
+
+  seek() {
+    let seek = audioSeek.value
+    audioPlayer.currentTime = seek
   }
 
   render() {
@@ -133,9 +138,7 @@ export default class Player extends React.Component {
             </span>
           </div>
 
-          <div className="progressBar">
-            <div className="progress gradient" id="progressBar"></div>
-          </div>
+          <input type="range" min="0" max={this.state.duration} id="audioSeek" className="progressbar" value={this.state.current} onChange={() => this.seek()} />
 
           <div className="controls">
             <button onClick={() => this.previous()}>
