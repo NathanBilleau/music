@@ -18,6 +18,14 @@ var _path = require('path');
 
 var _path2 = _interopRequireDefault(_path);
 
+var _fs = require('fs');
+
+var _fs2 = _interopRequireDefault(_fs);
+
+var _musicmetadata = require('musicmetadata');
+
+var _musicmetadata2 = _interopRequireDefault(_musicmetadata);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -38,21 +46,49 @@ var Track = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (Track.__proto__ || Object.getPrototypeOf(Track)).call(this));
 
-    _this.state = {};
+    _this.state = {
+      song: {}
+    };
     return _this;
   }
 
   _createClass(Track, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      var stream = _fs2.default.createReadStream(this.props.path);
+
+      (0, _musicmetadata2.default)(stream, function (err, meta) {
+        if (err) throw err;
+
+        var title = meta.title;
+        var album = meta.album;
+        var artist = meta.albumartist[0];
+
+        _this2.setState({
+          song: {
+            path: _this2.props.path,
+            title: title,
+            album: album,
+            artist: artist
+          }
+        });
+
+        stream.close();
+      });
+    }
+  }, {
     key: 'play',
     value: function play() {
       this.props.appState({
-        song: this.props.path
+        song: this.state.song
       });
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       return _react2.default.createElement(
         'div',
@@ -60,22 +96,22 @@ var Track = function (_React$Component) {
         _react2.default.createElement(
           'h1',
           null,
-          _path2.default.parse(this.props.path).name
+          this.state.song.title
         ),
         _react2.default.createElement(
           'h2',
           null,
-          '"artist"'
+          this.state.song.artist
         ),
         _react2.default.createElement(
           'h3',
           null,
-          '"album"'
+          this.state.song.album
         ),
         _react2.default.createElement(
           'button',
           { onClick: function onClick() {
-              return _this2.play();
+              return _this3.play();
             } },
           _react2.default.createElement('img', { src: 'img/play.svg' })
         )

@@ -109,15 +109,15 @@ export default class Player extends React.Component {
     return (
       <div className="playerSection">
 
-        <audio src={this.props.song} className="hidden" id="audioPlayer" autoPlay onTimeUpdate={() => this.progress()}></audio>
+        <audio src={this.props.song.path} className="hidden" id="audioPlayer" autoPlay onTimeUpdate={() => this.progress()}></audio>
 
         <div className="infos">
           <h1>
-            {path.parse(this.props.song).name}
+            {this.props.song.title}
           </h1>
 
           <h2>
-            Pink Floyd
+            {this.props.song.artist}
           </h2>
         </div>
 

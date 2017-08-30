@@ -141,7 +141,7 @@ var Player = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         { className: 'playerSection' },
-        _react2.default.createElement('audio', { src: this.props.song, className: 'hidden', id: 'audioPlayer', autoPlay: true, onTimeUpdate: function onTimeUpdate() {
+        _react2.default.createElement('audio', { src: this.props.song.path, className: 'hidden', id: 'audioPlayer', autoPlay: true, onTimeUpdate: function onTimeUpdate() {
             return _this2.progress();
           } }),
         _react2.default.createElement(
@@ -150,12 +150,12 @@ var Player = function (_React$Component) {
           _react2.default.createElement(
             'h1',
             null,
-            _path2.default.parse(this.props.song).name
+            this.props.song.title
           ),
           _react2.default.createElement(
             'h2',
             null,
-            'Pink Floyd'
+            this.props.song.artist
           )
         ),
         _react2.default.createElement(

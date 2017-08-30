@@ -2,6 +2,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import path from 'path'
+import fs from 'fs'
+import musicmetadata from 'musicmetadata'
 
 // Components
 
@@ -13,13 +15,29 @@ export default class Track extends React.Component {
   constructor (){
     super()
     this.state = {
-
+      song: {}
     }
+  }
+
+  componentDidMount() {
+
+    musicmetadata(fs.createReadStream(this.props.path), (err, meta) => {
+      if (err) throw err
+      this.setState({
+        song: {
+          path: this.props.path,
+          title: meta.title,
+          album: meta.album,
+          artist: meta.albumartist[0]
+        }
+      })
+    })
+
   }
 
   play() {
     this.props.appState({
-      song: this.props.path
+      song: this.state.song
     })
   }
 
@@ -27,15 +45,15 @@ export default class Track extends React.Component {
     return (
       <div className={this.props.active === true ? 'track active' : 'track'}>
         <h1>
-          {path.parse(this.props.path).name}
+          {this.state.song.title}
         </h1>
 
         <h2>
-          "artist"
+          {this.state.song.artist}
         </h2>
 
         <h3>
-          "album"
+          {this.state.song.album}
         </h3>
 
         <button onClick={() => this.play()}>
