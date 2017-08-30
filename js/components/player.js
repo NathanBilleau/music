@@ -141,7 +141,7 @@ export default class Player extends React.Component {
             </span>
           </div>
 
-          <input type="range" min="0" max={this.state.duration} id="audioSeek" className="progressbar" value={this.state.current} onChange={() => this.seek()} />
+          <input type="range" min="0" max={this.state.duration} id="audioSeek" className="progressbar gradient" value={this.state.current} onChange={() => this.seek()} />
 
           <div className="controls">
             <button onClick={() => this.previous()}>

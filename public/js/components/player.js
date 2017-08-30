@@ -180,7 +180,7 @@ var Player = function (_React$Component) {
               secondsToMinutes(this.state.duration)
             )
           ),
-          _react2.default.createElement('input', { type: 'range', min: '0', max: this.state.duration, id: 'audioSeek', className: 'progressbar', value: this.state.current, onChange: function onChange() {
+          _react2.default.createElement('input', { type: 'range', min: '0', max: this.state.duration, id: 'audioSeek', className: 'progressbar gradient', value: this.state.current, onChange: function onChange() {
               return _this2.seek();
             } }),
           _react2.default.createElement(
