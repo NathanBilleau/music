@@ -10,10 +10,6 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = require('react-dom');
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
 var _fs = require('fs');
 
 var _fs2 = _interopRequireDefault(_fs);
@@ -26,6 +22,8 @@ var _config = require('..\\..\\..\\config.json');
 
 var _config2 = _interopRequireDefault(_config);
 
+var _electron = require('electron');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -33,6 +31,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // Librairies
+
+// import {dialog} from 'electron'
 
 
 // Components
@@ -60,6 +60,13 @@ var Settings = function (_React$Component) {
       });
     }
   }, {
+    key: 'configUpdate',
+    value: function configUpdate() {
+      _fs2.default.writeFileSync(__dirname + '\\..\\..\\..\\config.json', JSON.stringify(_config2.default, null, '\t'), function (err) {
+        if (err) throw err;
+      });
+    }
+  }, {
     key: 'color',
     value: function color(gradient) {
       this.props.appState({
@@ -68,10 +75,7 @@ var Settings = function (_React$Component) {
 
       _config2.default.color = gradient;
 
-      // ecrire dans le fichier
-      _fs2.default.writeFileSync(__dirname + '\\..\\..\\..\\config.json', JSON.stringify(_config2.default, null, '\t'), function (err) {
-        console.log(err);
-      });
+      this.configUpdate();
     }
   }, {
     key: 'componentWillMount',
@@ -79,6 +83,13 @@ var Settings = function (_React$Component) {
       this.setState({
         color: _config2.default.color
       });
+    }
+  }, {
+    key: 'browse',
+    value: function browse() {
+      var dir = _electron.remote.dialog.showOpenDialog({ properties: ['openDirectory'] });
+      _config2.default.musicFolder = dir[0];
+      this.configUpdate();
     }
   }, {
     key: 'render',
@@ -108,7 +119,9 @@ var Settings = function (_React$Component) {
         _react2.default.createElement(
           'label',
           { className: 'browse' },
-          _react2.default.createElement('input', { type: 'file', className: 'hidden' }),
+          _react2.default.createElement('input', { type: 'button', className: 'hidden', onClick: function onClick() {
+              return _this2.browse();
+            } }),
           _react2.default.createElement('img', { src: './img/folder.svg' }),
           _react2.default.createElement(
             'span',

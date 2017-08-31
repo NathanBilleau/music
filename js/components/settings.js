@@ -1,10 +1,10 @@
 // Librairies
 import React from 'react'
-import ReactDOM from 'react-dom'
 import fs from 'fs'
 import path from 'path'
+// import {dialog} from 'electron'
 import config from '..\\..\\..\\config.json'
-
+import {remote} from 'electron'
 // Components
 
 
@@ -25,6 +25,12 @@ export default class Settings extends React.Component {
     })
   }
 
+  configUpdate() {
+    fs.writeFileSync(__dirname + '\\..\\..\\..\\config.json', JSON.stringify(config, null, '\t'), err => {
+      if (err) throw err
+    })
+  }
+
   color(gradient) {
     this.props.appState({
       color: gradient
@@ -32,16 +38,20 @@ export default class Settings extends React.Component {
 
     config.color = gradient
 
-    // ecrire dans le fichier
-    fs.writeFileSync(__dirname + '\\..\\..\\..\\config.json', JSON.stringify(config, null, '\t'), err => {
-      console.log(err)
-    })
+    this.configUpdate()
   }
 
   componentWillMount() {
     this.setState({
       color: config.color
     })
+  }
+
+
+  browse() {
+    let dir = remote.dialog.showOpenDialog({properties: ['openDirectory']})
+    config.musicFolder = dir[0]
+    this.configUpdate()
   }
 
 
@@ -61,7 +71,9 @@ export default class Settings extends React.Component {
         <h2>Music location</h2>
 
         <label className="browse">
-          <input type="file" className="hidden"/>
+
+          <input type="button" className="hidden" onClick={() => this.browse()} />
+
           <img src="./img/folder.svg" />
           <span>browse</span>
         </label>

@@ -61,7 +61,7 @@ var List = function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      (0, _glob2.default)(this.props.musicFolder, function (err, files) {
+      (0, _glob2.default)(this.props.musicFolder + "\\**\\*.mp3", function (err, files) {
         _this2.setState({ files: files });
         _this2.props.appState({ main: 'list' });
       });
