@@ -49,8 +49,11 @@ export default class Settings extends React.Component {
 
 
   browse() {
-    let dir = remote.dialog.showOpenDialog({properties: ['openDirectory']})
-    config.musicFolder = dir[0]
+    let dir = remote.dialog.showOpenDialog({properties: ['openDirectory']})[0]
+    config.musicFolder = dir
+    this.props.appState({
+      musicFolder: dir
+    })
     this.configUpdate()
   }
 

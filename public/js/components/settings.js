@@ -87,8 +87,11 @@ var Settings = function (_React$Component) {
   }, {
     key: 'browse',
     value: function browse() {
-      var dir = _electron.remote.dialog.showOpenDialog({ properties: ['openDirectory'] });
-      _config2.default.musicFolder = dir[0];
+      var dir = _electron.remote.dialog.showOpenDialog({ properties: ['openDirectory'] })[0];
+      _config2.default.musicFolder = dir;
+      this.props.appState({
+        musicFolder: dir
+      });
       this.configUpdate();
     }
   }, {
