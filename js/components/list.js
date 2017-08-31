@@ -20,7 +20,7 @@ export default class List extends React.Component {
   }
 
   componentDidMount() {
-    glob('C:\\Users\\Nathan\\Music\\**\\*.mp3', (err, files) => {
+    glob(this.props.musicFolder, (err, files) => {
       this.setState({files})
       this.props.appState({main: 'list'})
     })

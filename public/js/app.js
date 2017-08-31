@@ -10,6 +10,10 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
+var _config = require('..\\config.json');
+
+var _config2 = _interopRequireDefault(_config);
+
 var _top = require('./js/components/top');
 
 var _top2 = _interopRequireDefault(_top);
@@ -53,13 +57,22 @@ var App = function (_React$Component) {
     _this.state = {
       search: ' ',
       main: 'loading',
-      color: 'TealLove',
-      song: ''
+      color: '',
+      musicFolder: '',
+      song: {}
     };
     return _this;
   }
 
   _createClass(App, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.setState({
+        color: _config2.default.color,
+        musicFolder: _config2.default.musicFolder
+      });
+    }
+  }, {
     key: 'appState',
     value: function appState(newState) {
       this.setState(newState);
@@ -77,7 +90,7 @@ var App = function (_React$Component) {
           _react2.default.createElement(_top2.default, { appState: this.appState.bind(this) }),
           _react2.default.createElement(_loading2.default, { appState: this.appState.bind(this), display: this.state.main === 'loading' ? true : false }),
           _react2.default.createElement(_settings2.default, { appState: this.appState.bind(this), display: this.state.main === 'settings' ? true : false }),
-          _react2.default.createElement(_list2.default, { appState: this.appState.bind(this), search: this.state.search, display: this.state.main === 'list' ? true : false })
+          _react2.default.createElement(_list2.default, { appState: this.appState.bind(this), search: this.state.search, musicFolder: this.state.musicFolder, display: this.state.main === 'list' ? true : false })
         ),
         _react2.default.createElement(_player2.default, { appState: this.appState.bind(this), song: this.state.song })
       );

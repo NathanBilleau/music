@@ -22,6 +22,10 @@ var _path = require('path');
 
 var _path2 = _interopRequireDefault(_path);
 
+var _config = require('..\\..\\..\\config.json');
+
+var _config2 = _interopRequireDefault(_config);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -42,7 +46,9 @@ var Settings = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (Settings.__proto__ || Object.getPrototypeOf(Settings)).call(this));
 
-    _this.state = {};
+    _this.state = {
+      color: ''
+    };
     return _this;
   }
 
@@ -51,6 +57,27 @@ var Settings = function (_React$Component) {
     value: function close() {
       this.props.appState({
         main: 'list'
+      });
+    }
+  }, {
+    key: 'color',
+    value: function color(gradient) {
+      this.props.appState({
+        color: gradient
+      });
+
+      _config2.default.color = gradient;
+
+      // ecrire dans le fichier
+      _fs2.default.writeFileSync(__dirname + '\\..\\..\\..\\config.json', JSON.stringify(_config2.default, null, '\t'), function (err) {
+        console.log(err);
+      });
+    }
+  }, {
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.setState({
+        color: _config2.default.color
       });
     }
   }, {
@@ -100,24 +127,24 @@ var Settings = function (_React$Component) {
           _react2.default.createElement(
             'label',
             { className: 'color' },
-            _react2.default.createElement('input', { type: 'radio', name: 'color', className: 'hidden', value: 'TealLove', defaultChecked: true, onClick: function onClick() {
-                return _this2.props.appState({ color: 'TealLove' });
+            _react2.default.createElement('input', { type: 'radio', name: 'color', className: 'hidden', value: 'TealLove', defaultChecked: this.state.color === 'TealLove' ? true : false, onClick: function onClick() {
+                return _this2.color('TealLove');
               } }),
             _react2.default.createElement('div', { className: 'TealLove' })
           ),
           _react2.default.createElement(
             'label',
             { className: 'color' },
-            _react2.default.createElement('input', { type: 'radio', name: 'color', className: 'hidden', value: 'Reef', onClick: function onClick() {
-                return _this2.props.appState({ color: 'Reef' });
+            _react2.default.createElement('input', { type: 'radio', name: 'color', className: 'hidden', value: 'Reef', defaultChecked: this.state.color === 'Reef' ? true : false, onClick: function onClick() {
+                return _this2.color('Reef');
               } }),
             _react2.default.createElement('div', { className: 'Reef' })
           ),
           _react2.default.createElement(
             'label',
             { className: 'color' },
-            _react2.default.createElement('input', { type: 'radio', name: 'color', className: 'hidden', value: 'LightOrange', onClick: function onClick() {
-                return _this2.props.appState({ color: 'LightOrange' });
+            _react2.default.createElement('input', { type: 'radio', name: 'color', className: 'hidden', value: 'LightOrange', defaultChecked: this.state.color === 'LightOrange' ? true : false, onClick: function onClick() {
+                return _this2.color('LightOrange');
               } }),
             _react2.default.createElement('div', { className: 'LightOrange' })
           )

@@ -64,5 +64,6 @@ typings/
 # mine
 app.psd
 notes.txt
+dist
 
 # End of https://www.gitignore.io/api/node
