@@ -1,6 +1,5 @@
 // Librairies
 import React from 'react'
-import ReactDOM from 'react-dom'
 import fs from 'fs'
 import glob from 'glob'
 import path from 'path'
@@ -33,11 +32,13 @@ export default class List extends React.Component {
     })
 
 
-    let track = selection.map(i =>
+    let track = selection.map((item, i) =>
       <Track
       key={i}
+      id={i}
       appState={this.props.appState}
-      path={i}
+      songs={this.props.songs}
+      path={item}
       active={false} />
     )
 

@@ -1,8 +1,10 @@
 // Librairies
 import React from 'react'
-import ReactDOM from 'react-dom'
 import path from 'path'
 import {shell} from 'electron'
+import fs from 'fs'
+import musicmetadata from 'musicmetadata'
+
 // Components
 
 
@@ -18,7 +20,8 @@ export default class Player extends React.Component {
       button: 'pause',
       volume: 0.3,
       duration: 0,
-      current: 0
+      current: 0,
+      song: {}
     }
   }
 
@@ -31,9 +34,13 @@ export default class Player extends React.Component {
     cover.style.backgroundImage = 'url("./img/cover/undefined.png")'
   }
 
+  newSong() {
+    this.setState({song: this.props.songs[this.props.songId]})
+  }
 
   previous() {
-
+    let currentIndex = this.state.song.id - 1
+    this.props.appState({songId: currentIndex})
   }
 
   play() {
@@ -53,7 +60,8 @@ export default class Player extends React.Component {
   }
 
   next() {
-
+    let currentIndex = this.state.song.id + 1
+    this.props.appState({songId: currentIndex})
   }
 
 
@@ -78,7 +86,7 @@ export default class Player extends React.Component {
   }
 
   folder() {
-    shell.showItemInFolder(this.props.song.path)
+    shell.showItemInFolder(this.state.song.path)
   }
 
   volume() {
@@ -91,11 +99,15 @@ export default class Player extends React.Component {
   }
 
   progress() {
+    if (decodeURI(audioPlayer.src).replace('file:///', '') != this.state.song.path || Object.keys(this.state.song.path).length === 0) {
+      this.newSong()
+    }
+
     let duration = audioPlayer.duration
     let current = audioPlayer.currentTime
 
     cover.style.backgroundImage = 'none'
-    cover.style.backgroundImage = 'url("./img/cover/' + this.props.song.album + '.png")'
+    cover.style.backgroundImage = 'url("./img/cover/' + this.state.song.album + '.png")'
 
     this.setState({
       duration,
@@ -109,18 +121,29 @@ export default class Player extends React.Component {
   }
 
   render() {
+    let audio
+
+    if (typeof this.props.songs[this.props.songId] != 'undefined') {
+      audio = <audio src={this.props.songs[this.props.songId].path} className="hidden" id="audioPlayer" autoPlay onTimeUpdate={() => this.progress()}></audio>
+    }
+    else{
+      audio = <audio className="hidden" id="audioPlayer" autoPlay onTimeUpdate={() => this.progress()}></audio>
+    }
+
+
+
     return (
       <div className="playerSection">
 
-        <audio src={this.props.song.path} className="hidden" id="audioPlayer" autoPlay onTimeUpdate={() => this.progress()}></audio>
+        {audio}
 
         <div className="infos">
           <h1>
-            {this.props.song.title}
+            {this.state.song.title}
           </h1>
 
           <h2>
-            {this.props.song.artist}
+            {this.state.song.artist}
           </h2>
         </div>
 
@@ -129,7 +152,7 @@ export default class Player extends React.Component {
 
 
         <div className="player">
-          <div className="cover" id="cover" ></div>
+          <div className="cover" id="cover"></div>
 
           <div className="time">
             <span>

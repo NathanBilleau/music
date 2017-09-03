@@ -1,6 +1,5 @@
 // Librairies
 import React from 'react'
-import ReactDOM from 'react-dom'
 import path from 'path'
 import fs from 'fs'
 import musicmetadata from 'musicmetadata'
@@ -23,11 +22,13 @@ export default class Track extends React.Component {
     let stream = fs.createReadStream(this.props.path)
     let song = {
       path: this.props.path,
+      id: this.props.id,
       title: path.parse(this.props.path).name,
       album: 'Unknown Album',
       artist: 'Unknown Artist',
       picture: false
     }
+
 
     musicmetadata(stream, (err, meta) => {
       if (err) throw err
@@ -43,6 +44,15 @@ export default class Track extends React.Component {
 
       stream.close()
     })
+
+      setTimeout(() => {
+        this.props.appState({
+          songs: [...this.props.songs, this.state.song]
+        })     
+      }, 100)
+
+  
+
   }
 
   play() {
@@ -64,9 +74,8 @@ export default class Track extends React.Component {
     }
 
 
-
     this.props.appState({
-      song: this.state.song
+      songId: this.state.song.id
     })
   }
 

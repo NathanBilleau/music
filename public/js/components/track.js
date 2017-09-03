@@ -10,10 +10,6 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = require('react-dom');
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
 var _path = require('path');
 
 var _path2 = _interopRequireDefault(_path);
@@ -27,6 +23,8 @@ var _musicmetadata = require('musicmetadata');
 var _musicmetadata2 = _interopRequireDefault(_musicmetadata);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -60,6 +58,7 @@ var Track = function (_React$Component) {
       var stream = _fs2.default.createReadStream(this.props.path);
       var song = {
         path: this.props.path,
+        id: this.props.id,
         title: _path2.default.parse(this.props.path).name,
         album: 'Unknown Album',
         artist: 'Unknown Artist',
@@ -80,6 +79,12 @@ var Track = function (_React$Component) {
 
         stream.close();
       });
+
+      setTimeout(function () {
+        _this2.props.appState({
+          songs: [].concat(_toConsumableArray(_this2.props.songs), [_this2.state.song])
+        });
+      }, 100);
     }
   }, {
     key: 'play',
@@ -98,7 +103,7 @@ var Track = function (_React$Component) {
       }
 
       this.props.appState({
-        song: this.state.song
+        songId: this.state.song.id
       });
     }
   }, {
