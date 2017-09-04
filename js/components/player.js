@@ -36,6 +36,10 @@ export default class Player extends React.Component {
     audioPlayer.onended = () => {
       this.next()
     }
+
+    audioPlayer.ondurationchange = () => {
+      this.newSong()
+    }
   }
 
   newSong() {
@@ -122,10 +126,6 @@ export default class Player extends React.Component {
   }
 
   progress() {
-    if (decodeURI(audioPlayer.src).replace('file:///', '') != this.state.song.path) {
-      this.newSong()
-    }
-
     let duration = audioPlayer.duration
     let current = audioPlayer.currentTime
 

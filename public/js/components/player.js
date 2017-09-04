@@ -73,6 +73,10 @@ var Player = function (_React$Component) {
       audioPlayer.onended = function () {
         _this2.next();
       };
+
+      audioPlayer.ondurationchange = function () {
+        _this2.newSong();
+      };
     }
   }, {
     key: 'newSong',
@@ -156,10 +160,6 @@ var Player = function (_React$Component) {
   }, {
     key: 'progress',
     value: function progress() {
-      if (decodeURI(audioPlayer.src).replace('file:///', '') != this.state.song.path) {
-        this.newSong();
-      }
-
       var duration = audioPlayer.duration;
       var current = audioPlayer.currentTime;
 
