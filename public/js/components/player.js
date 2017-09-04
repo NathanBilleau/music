@@ -163,8 +163,12 @@ var Player = function (_React$Component) {
       var duration = audioPlayer.duration;
       var current = audioPlayer.currentTime;
 
+      var percent = current / duration * 10;
+
       cover.style.backgroundImage = 'none';
       if (typeof this.state.song.picture != 'undefined') {
+        cover.style.backgroundCenter = "center";
+        cover.style.backgroundSize = 100 + percent + "%";
         cover.style.backgroundImage = 'url("./img/cover/' + this.state.song.album + '.png")';
       }
 

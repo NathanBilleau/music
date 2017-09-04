@@ -128,10 +128,9 @@ body {
       height: 25vh;
       border: 5px solid #333;
       border-radius: 5px;
-      background-size: 100%;
       background-position: center;
+      transition: .2s linear;
       margin: auto;
-      transition: .2s;
       cursor: pointer; }
       .app .playerSection .cover:hover {
         background-size: 105%; }

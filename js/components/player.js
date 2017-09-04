@@ -129,8 +129,13 @@ export default class Player extends React.Component {
     let duration = audioPlayer.duration
     let current = audioPlayer.currentTime
 
+    let percent = current / duration * 10
+
+
     cover.style.backgroundImage = 'none'
     if (typeof this.state.song.picture != 'undefined') {
+        cover.style.backgroundCenter = "center"
+        cover.style.backgroundSize = 100 + percent + "%"
         cover.style.backgroundImage = 'url("./img/cover/' + this.state.song.album + '.png")'
     }
 
