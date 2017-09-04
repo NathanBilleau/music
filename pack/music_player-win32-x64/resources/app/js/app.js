@@ -1,6 +1,7 @@
 // Librairies
 import React from 'react'
 import ReactDOM from 'react-dom'
+import config from '..\\config.json'
 
 // Components
 import Top from './js/components/top'
@@ -17,9 +18,19 @@ class App extends React.Component {
     this.state = {
       search: ' ',
       main: 'loading',
-      color: 'TealLove',
-      song: {}
+      color: '',
+      musicFolder: '',
+      songId: 0,
+      songs: [],
+      random: false
     }
+  }
+
+  componentWillMount() {
+    this.setState({
+      color: config.color,
+      musicFolder: config.musicFolder
+    })
   }
 
   appState(newState) {
@@ -35,10 +46,10 @@ class App extends React.Component {
           <Top appState={this.appState.bind(this)} />
           <Loading appState={this.appState.bind(this)} display={this.state.main === 'loading' ? true : false} />
           <Settings appState={this.appState.bind(this)} display={this.state.main === 'settings' ? true : false} />
-          <List appState={this.appState.bind(this)} search={this.state.search} display={this.state.main === 'list' ? true : false} />
+          <List appState={this.appState.bind(this)} songs={this.state.songs} search={this.state.search} musicFolder={this.state.musicFolder} display={this.state.main === 'list' ? true : false} />
         </div>
 
-        <Player appState={this.appState.bind(this)} song={this.state.song}/>
+        <Player appState={this.appState.bind(this)} songId={this.state.songId} songs={this.state.songs}/>
 
       </div>
     )

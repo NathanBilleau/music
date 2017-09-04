@@ -31,17 +31,34 @@ export default class Player extends React.Component {
     let audioSeek = document.getElementById('audioSeek')
 
     audioPlayer.volume = this.state.volume
-    cover.style.backgroundImage = 'url("./img/cover/undefined.png")'
+    cover.style.backgroundImage = 'none'
+
+    audioPlayer.onended = () => {
+      this.next()
+    }
   }
 
   newSong() {
+
     this.setState({song: this.props.songs[this.props.songId]})
+
+    if (typeof this.state.song.picture != 'undefined') {
+
+      let coverFile = __dirname + '/../../img/cover/' + this.state.song.album + '.png'
+      let coverFileTmp = __dirname + '/../../img/cover.png'
+
+      fs.writeFile(coverFileTmp, this.state.song.picture, (err) => {
+        if (err) throw err
+
+        fs.createReadStream(coverFileTmp).pipe(
+          fs.createWriteStream(coverFile)
+        )
+      })
+    }
+
+
   }
 
-  previous() {
-    let currentIndex = this.state.song.id - 1
-    this.props.appState({songId: currentIndex})
-  }
 
   play() {
     if (audioPlayer.paused) {
@@ -59,6 +76,12 @@ export default class Player extends React.Component {
 
   }
 
+
+  previous() {
+    let currentIndex = this.state.song.id - 1
+    this.props.appState({songId: currentIndex})
+  }
+
   next() {
     let currentIndex = this.state.song.id + 1
     this.props.appState({songId: currentIndex})
@@ -66,7 +89,7 @@ export default class Player extends React.Component {
 
 
   random() {
-
+    this.props.appState({random: true})
   }
 
   mute() {
@@ -99,7 +122,7 @@ export default class Player extends React.Component {
   }
 
   progress() {
-    if (decodeURI(audioPlayer.src).replace('file:///', '') != this.state.song.path || Object.keys(this.state.song.path).length === 0) {
+    if (decodeURI(audioPlayer.src).replace('file:///', '') != this.state.song.path) {
       this.newSong()
     }
 
@@ -107,7 +130,9 @@ export default class Player extends React.Component {
     let current = audioPlayer.currentTime
 
     cover.style.backgroundImage = 'none'
-    cover.style.backgroundImage = 'url("./img/cover/' + this.state.song.album + '.png")'
+    if (typeof this.state.song.picture != 'undefined') {
+        cover.style.backgroundImage = 'url("./img/cover/' + this.state.song.album + '.png")'
+    }
 
     this.setState({
       duration,

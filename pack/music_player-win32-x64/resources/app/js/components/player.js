@@ -1,8 +1,10 @@
 // Librairies
 import React from 'react'
-import ReactDOM from 'react-dom'
 import path from 'path'
 import {shell} from 'electron'
+import fs from 'fs'
+import musicmetadata from 'musicmetadata'
+
 // Components
 
 
@@ -18,7 +20,8 @@ export default class Player extends React.Component {
       button: 'pause',
       volume: 0.3,
       duration: 0,
-      current: 0
+      current: 0,
+      song: {}
     }
   }
 
@@ -28,12 +31,30 @@ export default class Player extends React.Component {
     let audioSeek = document.getElementById('audioSeek')
 
     audioPlayer.volume = this.state.volume
+    cover.style.backgroundImage = 'none'
   }
 
+  newSong() {
 
-  previous() {
+    this.setState({song: this.props.songs[this.props.songId]})
+
+    if (typeof this.state.song.picture != 'undefined') {
+
+      let coverFile = __dirname + '/../../img/cover/' + this.state.song.album + '.png'
+      let coverFileTmp = __dirname + '/../../img/cover.png'
+
+      fs.writeFile(coverFileTmp, this.state.song.picture, (err) => {
+        if (err) throw err
+
+        fs.createReadStream(coverFileTmp).pipe(
+          fs.createWriteStream(coverFile)
+        )
+      })
+    }
+
 
   }
+
 
   play() {
     if (audioPlayer.paused) {
@@ -51,13 +72,20 @@ export default class Player extends React.Component {
 
   }
 
-  next() {
 
+  previous() {
+    let currentIndex = this.state.song.id - 1
+    this.props.appState({songId: currentIndex})
+  }
+
+  next() {
+    let currentIndex = this.state.song.id + 1
+    this.props.appState({songId: currentIndex})
   }
 
 
   random() {
-
+    this.props.appState({random: true})
   }
 
   mute() {
@@ -77,7 +105,7 @@ export default class Player extends React.Component {
   }
 
   folder() {
-    shell.showItemInFolder(this.props.song.path)
+    shell.showItemInFolder(this.state.song.path)
   }
 
   volume() {
@@ -90,11 +118,17 @@ export default class Player extends React.Component {
   }
 
   progress() {
+    if (decodeURI(audioPlayer.src).replace('file:///', '') != this.state.song.path || Object.keys(this.state.song.path).length === 0) {
+      this.newSong()
+    }
+
     let duration = audioPlayer.duration
     let current = audioPlayer.currentTime
 
     cover.style.backgroundImage = 'none'
-    cover.style.backgroundImage = 'url("./img/cover/' + this.props.song.album + '.png")'
+    if (typeof this.state.song.picture != 'undefined') {
+        cover.style.backgroundImage = 'url("./img/cover/' + this.state.song.album + '.png")'
+    }
 
     this.setState({
       duration,
@@ -108,18 +142,29 @@ export default class Player extends React.Component {
   }
 
   render() {
+    let audio
+
+    if (typeof this.props.songs[this.props.songId] != 'undefined') {
+      audio = <audio src={this.props.songs[this.props.songId].path} className="hidden" id="audioPlayer" autoPlay onTimeUpdate={() => this.progress()}></audio>
+    }
+    else{
+      audio = <audio className="hidden" id="audioPlayer" autoPlay onTimeUpdate={() => this.progress()}></audio>
+    }
+
+
+
     return (
       <div className="playerSection">
 
-        <audio src={this.props.song.path} className="hidden" id="audioPlayer" autoPlay onTimeUpdate={() => this.progress()}></audio>
+        {audio}
 
         <div className="infos">
           <h1>
-            {this.props.song.title}
+            {this.state.song.title}
           </h1>
 
           <h2>
-            {this.props.song.artist}
+            {this.state.song.artist}
           </h2>
         </div>
 
@@ -128,7 +173,7 @@ export default class Player extends React.Component {
 
 
         <div className="player">
-          <div className="cover" id="cover" ></div>
+          <div className="cover" id="cover"></div>
 
           <div className="time">
             <span>
@@ -140,7 +185,7 @@ export default class Player extends React.Component {
             </span>
           </div>
 
-          <input type="range" min="0" max={this.state.duration} id="audioSeek" className="progressbar" value={this.state.current} onChange={() => this.seek()} />
+          <input type="range" min="0" max={this.state.duration} id="audioSeek" className="progressbar gradient" value={this.state.current} onChange={() => this.seek()} />
 
           <div className="controls">
             <button onClick={() => this.previous()}>

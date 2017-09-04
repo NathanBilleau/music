@@ -10,10 +10,6 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = require('react-dom');
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
 var _fs = require('fs');
 
 var _fs2 = _interopRequireDefault(_fs);
@@ -61,7 +57,7 @@ var List = function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      (0, _glob2.default)('C:\\Users\\Nathan\\Music\\**\\*.mp3', function (err, files) {
+      (0, _glob2.default)(this.props.musicFolder + "\\**\\*.mp3", function (err, files) {
         _this2.setState({ files: files });
         _this2.props.appState({ main: 'list' });
       });
@@ -75,11 +71,13 @@ var List = function (_React$Component) {
         return _path2.default.parse(item).name.toLowerCase().search(_this3.props.search) != -1;
       });
 
-      var track = selection.map(function (i) {
+      var track = selection.map(function (item, i) {
         return _react2.default.createElement(_track2.default, {
           key: i,
+          id: i,
           appState: _this3.props.appState,
-          path: i,
+          songs: _this3.props.songs,
+          path: item,
           active: false });
       });
 

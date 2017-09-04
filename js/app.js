@@ -21,7 +21,8 @@ class App extends React.Component {
       color: '',
       musicFolder: '',
       songId: 0,
-      songs: []
+      songs: [],
+      random: false
     }
   }
 

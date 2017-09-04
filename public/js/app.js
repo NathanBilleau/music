@@ -60,7 +60,8 @@ var App = function (_React$Component) {
       color: '',
       musicFolder: '',
       songId: 0,
-      songs: []
+      songs: [],
+      random: false
     };
     return _this;
   }

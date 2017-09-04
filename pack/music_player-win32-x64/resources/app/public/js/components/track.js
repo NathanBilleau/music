@@ -10,10 +10,6 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = require('react-dom');
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
 var _path = require('path');
 
 var _path2 = _interopRequireDefault(_path);
@@ -27,6 +23,8 @@ var _musicmetadata = require('musicmetadata');
 var _musicmetadata2 = _interopRequireDefault(_musicmetadata);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -58,43 +56,44 @@ var Track = function (_React$Component) {
       var _this2 = this;
 
       var stream = _fs2.default.createReadStream(this.props.path);
+      var song = {
+        path: this.props.path,
+        id: this.props.id,
+        title: _path2.default.parse(this.props.path).name,
+        album: 'Unknown Album',
+        artist: 'Unknown Artist'
+      };
 
       (0, _musicmetadata2.default)(stream, function (err, meta) {
         if (err) throw err;
 
-        var title = meta.title;
-        var album = meta.album;
-        var artist = meta.albumartist[0];
-        var picture = meta.picture[0].data;
+        song.title = meta.title;
+        song.album = meta.album;
+        song.artist = meta.albumartist[0];
+
+        //cannot read property 'data' of undefined
+        if (typeof meta.picture[0] != 'undefined') {
+          song.picture = meta.picture[0].data;
+        }
 
         _this2.setState({
-          song: {
-            path: _this2.props.path,
-            title: title,
-            album: album,
-            artist: artist,
-            picture: picture
-          }
+          song: song
         });
 
         stream.close();
       });
+
+      setTimeout(function () {
+        _this2.props.appState({
+          songs: [].concat(_toConsumableArray(_this2.props.songs), [_this2.state.song])
+        });
+      }, 50);
     }
   }, {
     key: 'play',
     value: function play() {
-
-      var coverFile = __dirname + '/../../img/cover/' + this.state.song.album + '.png';
-      var coverFileTmp = __dirname + '/../../img/cover.png';
-
-      _fs2.default.writeFile(coverFileTmp, this.state.song.picture, function (err) {
-        console.log(err);
-
-        _fs2.default.createReadStream(coverFileTmp).pipe(_fs2.default.createWriteStream(coverFile));
-      });
-
       this.props.appState({
-        song: this.state.song
+        songId: this.state.song.id
       });
     }
   }, {

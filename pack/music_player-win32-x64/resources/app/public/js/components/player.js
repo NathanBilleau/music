@@ -10,15 +10,19 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = require('react-dom');
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
 var _path = require('path');
 
 var _path2 = _interopRequireDefault(_path);
 
 var _electron = require('electron');
+
+var _fs = require('fs');
+
+var _fs2 = _interopRequireDefault(_fs);
+
+var _musicmetadata = require('musicmetadata');
+
+var _musicmetadata2 = _interopRequireDefault(_musicmetadata);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -48,7 +52,8 @@ var Player = function (_React$Component) {
       button: 'pause',
       volume: 0.3,
       duration: 0,
-      current: 0
+      current: 0,
+      song: {}
     };
     return _this;
   }
@@ -61,10 +66,26 @@ var Player = function (_React$Component) {
       var audioSeek = document.getElementById('audioSeek');
 
       audioPlayer.volume = this.state.volume;
+      cover.style.backgroundImage = 'none';
     }
   }, {
-    key: 'previous',
-    value: function previous() {}
+    key: 'newSong',
+    value: function newSong() {
+
+      this.setState({ song: this.props.songs[this.props.songId] });
+
+      if (typeof this.state.song.picture != 'undefined') {
+
+        var coverFile = __dirname + '/../../img/cover/' + this.state.song.album + '.png';
+        var coverFileTmp = __dirname + '/../../img/cover.png';
+
+        _fs2.default.writeFile(coverFileTmp, this.state.song.picture, function (err) {
+          if (err) throw err;
+
+          _fs2.default.createReadStream(coverFileTmp).pipe(_fs2.default.createWriteStream(coverFile));
+        });
+      }
+    }
   }, {
     key: 'play',
     value: function play() {
@@ -81,11 +102,22 @@ var Player = function (_React$Component) {
       }
     }
   }, {
+    key: 'previous',
+    value: function previous() {
+      var currentIndex = this.state.song.id - 1;
+      this.props.appState({ songId: currentIndex });
+    }
+  }, {
     key: 'next',
-    value: function next() {}
+    value: function next() {
+      var currentIndex = this.state.song.id + 1;
+      this.props.appState({ songId: currentIndex });
+    }
   }, {
     key: 'random',
-    value: function random() {}
+    value: function random() {
+      this.props.appState({ random: true });
+    }
   }, {
     key: 'mute',
     value: function mute() {
@@ -104,7 +136,7 @@ var Player = function (_React$Component) {
   }, {
     key: 'folder',
     value: function folder() {
-      _electron.shell.showItemInFolder(this.props.song.path);
+      _electron.shell.showItemInFolder(this.state.song.path);
     }
   }, {
     key: 'volume',
@@ -118,11 +150,17 @@ var Player = function (_React$Component) {
   }, {
     key: 'progress',
     value: function progress() {
+      if (decodeURI(audioPlayer.src).replace('file:///', '') != this.state.song.path || Object.keys(this.state.song.path).length === 0) {
+        this.newSong();
+      }
+
       var duration = audioPlayer.duration;
       var current = audioPlayer.currentTime;
 
       cover.style.backgroundImage = 'none';
-      cover.style.backgroundImage = 'url("./img/cover/' + this.props.song.album + '.png")';
+      if (typeof this.state.song.picture != 'undefined') {
+        cover.style.backgroundImage = 'url("./img/cover/' + this.state.song.album + '.png")';
+      }
 
       this.setState({
         duration: duration,
@@ -140,24 +178,34 @@ var Player = function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
+      var audio = void 0;
+
+      if (typeof this.props.songs[this.props.songId] != 'undefined') {
+        audio = _react2.default.createElement('audio', { src: this.props.songs[this.props.songId].path, className: 'hidden', id: 'audioPlayer', autoPlay: true, onTimeUpdate: function onTimeUpdate() {
+            return _this2.progress();
+          } });
+      } else {
+        audio = _react2.default.createElement('audio', { className: 'hidden', id: 'audioPlayer', autoPlay: true, onTimeUpdate: function onTimeUpdate() {
+            return _this2.progress();
+          } });
+      }
+
       return _react2.default.createElement(
         'div',
         { className: 'playerSection' },
-        _react2.default.createElement('audio', { src: this.props.song.path, className: 'hidden', id: 'audioPlayer', autoPlay: true, onTimeUpdate: function onTimeUpdate() {
-            return _this2.progress();
-          } }),
+        audio,
         _react2.default.createElement(
           'div',
           { className: 'infos' },
           _react2.default.createElement(
             'h1',
             null,
-            this.props.song.title
+            this.state.song.title
           ),
           _react2.default.createElement(
             'h2',
             null,
-            this.props.song.artist
+            this.state.song.artist
           )
         ),
         _react2.default.createElement(
@@ -179,7 +227,7 @@ var Player = function (_React$Component) {
               secondsToMinutes(this.state.duration)
             )
           ),
-          _react2.default.createElement('input', { type: 'range', min: '0', max: this.state.duration, id: 'audioSeek', className: 'progressbar', value: this.state.current, onChange: function onChange() {
+          _react2.default.createElement('input', { type: 'range', min: '0', max: this.state.duration, id: 'audioSeek', className: 'progressbar gradient', value: this.state.current, onChange: function onChange() {
               return _this2.seek();
             } }),
           _react2.default.createElement(

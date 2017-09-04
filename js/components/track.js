@@ -25,8 +25,7 @@ export default class Track extends React.Component {
       id: this.props.id,
       title: path.parse(this.props.path).name,
       album: 'Unknown Album',
-      artist: 'Unknown Artist',
-      picture: false
+      artist: 'Unknown Artist'
     }
 
 
@@ -36,7 +35,12 @@ export default class Track extends React.Component {
       song.title = meta.title
       song.album = meta.album
       song.artist = meta.albumartist[0]
-      song.picture = meta.picture[0].data
+
+      //cannot read property 'data' of undefined
+      if (typeof meta.picture[0] != 'undefined') {
+        song.picture = meta.picture[0].data
+      }
+
 
       this.setState({
         song
@@ -48,32 +52,14 @@ export default class Track extends React.Component {
       setTimeout(() => {
         this.props.appState({
           songs: [...this.props.songs, this.state.song]
-        })     
-      }, 100)
+        })
+      }, 50)
 
-  
+
 
   }
 
   play() {
-
-    if (Object.keys(this.state.song.picture).length != 0) {
-
-      let coverFile = __dirname + '/../../img/cover/' + this.state.song.album + '.png'
-      let coverFileTmp = __dirname + '/../../img/cover.png'
-
-      fs.writeFile(coverFileTmp, this.state.song.picture, (err) => {
-        if (err) throw err
-
-        fs.createReadStream(coverFileTmp).pipe(
-          fs.createWriteStream(coverFile)
-        )
-
-      })
-
-    }
-
-
     this.props.appState({
       songId: this.state.song.id
     })

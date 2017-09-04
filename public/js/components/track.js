@@ -61,8 +61,7 @@ var Track = function (_React$Component) {
         id: this.props.id,
         title: _path2.default.parse(this.props.path).name,
         album: 'Unknown Album',
-        artist: 'Unknown Artist',
-        picture: false
+        artist: 'Unknown Artist'
       };
 
       (0, _musicmetadata2.default)(stream, function (err, meta) {
@@ -71,7 +70,11 @@ var Track = function (_React$Component) {
         song.title = meta.title;
         song.album = meta.album;
         song.artist = meta.albumartist[0];
-        song.picture = meta.picture[0].data;
+
+        //cannot read property 'data' of undefined
+        if (typeof meta.picture[0] != 'undefined') {
+          song.picture = meta.picture[0].data;
+        }
 
         _this2.setState({
           song: song
@@ -84,24 +87,11 @@ var Track = function (_React$Component) {
         _this2.props.appState({
           songs: [].concat(_toConsumableArray(_this2.props.songs), [_this2.state.song])
         });
-      }, 100);
+      }, 50);
     }
   }, {
     key: 'play',
     value: function play() {
-
-      if (Object.keys(this.state.song.picture).length != 0) {
-
-        var coverFile = __dirname + '/../../img/cover/' + this.state.song.album + '.png';
-        var coverFileTmp = __dirname + '/../../img/cover.png';
-
-        _fs2.default.writeFile(coverFileTmp, this.state.song.picture, function (err) {
-          if (err) throw err;
-
-          _fs2.default.createReadStream(coverFileTmp).pipe(_fs2.default.createWriteStream(coverFile));
-        });
-      }
-
       this.props.appState({
         songId: this.state.song.id
       });

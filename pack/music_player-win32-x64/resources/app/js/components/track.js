@@ -1,6 +1,5 @@
 // Librairies
 import React from 'react'
-import ReactDOM from 'react-dom'
 import path from 'path'
 import fs from 'fs'
 import musicmetadata from 'musicmetadata'
@@ -21,49 +20,48 @@ export default class Track extends React.Component {
 
   componentDidMount() {
     let stream = fs.createReadStream(this.props.path)
+    let song = {
+      path: this.props.path,
+      id: this.props.id,
+      title: path.parse(this.props.path).name,
+      album: 'Unknown Album',
+      artist: 'Unknown Artist'
+    }
+
 
     musicmetadata(stream, (err, meta) => {
       if (err) throw err
 
-      let title = meta.title
-      let album = meta.album
-      let artist = meta.albumartist[0]
-      let picture = meta.picture[0].data
+      song.title = meta.title
+      song.album = meta.album
+      song.artist = meta.albumartist[0]
+
+      //cannot read property 'data' of undefined
+      if (typeof meta.picture[0] != 'undefined') {
+        song.picture = meta.picture[0].data
+      }
 
 
       this.setState({
-        song: {
-          path: this.props.path,
-          title,
-          album,
-          artist,
-          picture
-        }
+        song
       })
 
       stream.close()
     })
 
+      setTimeout(() => {
+        this.props.appState({
+          songs: [...this.props.songs, this.state.song]
+        })
+      }, 50)
+
+
+
   }
 
   play() {
-
-
-    let coverFile = __dirname + '/../../img/cover/' + this.state.song.album + '.png'
-    let coverFileTmp = __dirname + '/../../img/cover.png'
-
-    fs.writeFile(coverFileTmp, this.state.song.picture, (err) => {
-      console.log(err)
-
-      fs.createReadStream(coverFileTmp).pipe(
-        fs.createWriteStream(coverFile)
-      )
-
-
-    })
-
     this.props.appState({
-      song: this.state.song
+      songId: this.state.song.id
     })
   }
 
