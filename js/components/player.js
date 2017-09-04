@@ -129,7 +129,7 @@ export default class Player extends React.Component {
     let duration = audioPlayer.duration
     let current = audioPlayer.currentTime
 
-    let percent = current / duration * 10
+    let percent = current / duration * 50
 
 
     cover.style.backgroundImage = 'none'

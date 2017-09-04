@@ -163,7 +163,7 @@ var Player = function (_React$Component) {
       var duration = audioPlayer.duration;
       var current = audioPlayer.currentTime;
 
-      var percent = current / duration * 10;
+      var percent = current / duration * 50;
 
       cover.style.backgroundImage = 'none';
       if (typeof this.state.song.picture != 'undefined') {

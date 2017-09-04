@@ -129,11 +129,9 @@ body {
       border: 5px solid #333;
       border-radius: 5px;
       background-position: center;
-      transition: .2s linear;
+      transition: .2s;
       margin: auto;
       cursor: pointer; }
-      .app .playerSection .cover:hover {
-        background-size: 105%; }
     .app .playerSection .time {
       padding: 10px 0;
       text-align: center;
