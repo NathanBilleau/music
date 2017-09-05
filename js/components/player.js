@@ -4,6 +4,16 @@ import path from 'path'
 import {shell} from 'electron'
 import fs from 'fs'
 import musicmetadata from 'musicmetadata'
+import Mousetrap from 'mousetrap'
+
+Mousetrap.addKeycodes({
+    179: 'playpause',
+    177: 'previous',
+    176: 'next',
+    174: 'volumeDown',
+    175: 'volumeUp',
+    173: 'volumeMute'
+})
 
 // Components
 
@@ -40,6 +50,38 @@ export default class Player extends React.Component {
     audioPlayer.ondurationchange = () => {
       this.newSong()
     }
+
+    // Keybinding
+
+    Mousetrap.bind('playpause', () => {
+      this.play()
+    })
+
+    Mousetrap.bind('next', () => {
+      this.next()
+    })
+
+    Mousetrap.bind('previous', () => {
+      this.previous()
+    })
+
+    Mousetrap.bind('volumeUp', () => {
+      this.setState({
+        volume: this.state.volume + 0.1
+      })
+    })
+
+    Mousetrap.bind('volumeDown', () => {
+      this.setState({
+        volume: this.state.volume - 0.1
+      })
+    })
+
+    Mousetrap.bind('volumeMute', () => {
+      this.mute()
+    })
+
+
   }
 
   newSong() {

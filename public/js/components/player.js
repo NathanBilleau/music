@@ -24,6 +24,10 @@ var _musicmetadata = require('musicmetadata');
 
 var _musicmetadata2 = _interopRequireDefault(_musicmetadata);
 
+var _mousetrap = require('mousetrap');
+
+var _mousetrap2 = _interopRequireDefault(_mousetrap);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -32,6 +36,15 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // Librairies
 
+
+_mousetrap2.default.addKeycodes({
+  179: 'playpause',
+  177: 'previous',
+  176: 'next',
+  174: 'volumeDown',
+  175: 'volumeUp',
+  173: 'volumeMute'
+});
 
 // Components
 
@@ -77,6 +90,36 @@ var Player = function (_React$Component) {
       audioPlayer.ondurationchange = function () {
         _this2.newSong();
       };
+
+      // Keybinding
+
+      _mousetrap2.default.bind('playpause', function () {
+        _this2.play();
+      });
+
+      _mousetrap2.default.bind('next', function () {
+        _this2.next();
+      });
+
+      _mousetrap2.default.bind('previous', function () {
+        _this2.previous();
+      });
+
+      _mousetrap2.default.bind('volumeUp', function () {
+        _this2.setState({
+          volume: _this2.state.volume + 0.1
+        });
+      });
+
+      _mousetrap2.default.bind('volumeDown', function () {
+        _this2.setState({
+          volume: _this2.state.volume - 0.1
+        });
+      });
+
+      _mousetrap2.default.bind('volumeMute', function () {
+        _this2.mute();
+      });
     }
   }, {
     key: 'newSong',
