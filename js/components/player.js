@@ -94,6 +94,7 @@ export default class Player extends React.Component {
   newSong() {
     this.setState({song: this.props.songs[this.props.songId]})
 
+
     if (typeof this.state.song.picture != 'undefined') {
 
       let coverFile = __dirname + '/../../img/cover/' + this.state.song.album + '.png'
@@ -107,7 +108,7 @@ export default class Player extends React.Component {
         )
       })
     }
-    
+
   }
 
 
@@ -127,7 +128,6 @@ export default class Player extends React.Component {
 
   }
 
-
   previous() {
     let currentIndex = this.state.song.id - 1
     this.props.appState({songId: currentIndex})
@@ -137,7 +137,6 @@ export default class Player extends React.Component {
     let currentIndex = this.state.song.id + 1
     this.props.appState({songId: currentIndex})
   }
-
 
   random() {
     this.props.appState({random: true})
@@ -216,11 +215,11 @@ export default class Player extends React.Component {
 
         <div className="infos">
           <h1>
-            {this.state.song.title}
+            {typeof this.state.song.title != 'undefined' && this.state.song.title.length >= 20 ? this.state.song.title.slice(0, 20) + '...' : this.state.song.title}
           </h1>
 
           <h2>
-            {this.state.song.artist}
+            {typeof this.state.song.artist != 'undefined' && this.state.song.artist.length >= 20 ? this.state.song.artist.slice(0, 20) + '...' : this.state.song.artist}
           </h2>
         </div>
 

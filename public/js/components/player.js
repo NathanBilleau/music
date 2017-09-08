@@ -258,12 +258,12 @@ var Player = function (_React$Component) {
           _react2.default.createElement(
             'h1',
             null,
-            this.state.song.title
+            typeof this.state.song.title != 'undefined' && this.state.song.title.length >= 20 ? this.state.song.title.slice(0, 20) + '...' : this.state.song.title
           ),
           _react2.default.createElement(
             'h2',
             null,
-            this.state.song.artist
+            typeof this.state.song.artist != 'undefined' && this.state.song.artist.length >= 20 ? this.state.song.artist.slice(0, 20) + '...' : this.state.song.artist
           )
         ),
         _react2.default.createElement(
