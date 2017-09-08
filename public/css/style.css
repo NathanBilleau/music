@@ -378,7 +378,8 @@ body {
       grid-template-columns: 31% 31% 31% 7%;
       font-size: .8em;
       font-weight: 300;
-      color: #333; }
+      color: #333;
+      transition: .1s; }
       .app .list .track button {
         height: 1em;
         padding: 0;
@@ -389,4 +390,4 @@ body {
         .app .list .track button img {
           height: 100%; }
       .app .list .track.active {
-        font-weight: 700; }
+        font-weight: 900; }

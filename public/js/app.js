@@ -92,7 +92,7 @@ var App = function (_React$Component) {
           _react2.default.createElement(_top2.default, { appState: this.appState.bind(this) }),
           _react2.default.createElement(_loading2.default, { appState: this.appState.bind(this), display: this.state.main === 'loading' ? true : false }),
           _react2.default.createElement(_settings2.default, { appState: this.appState.bind(this), display: this.state.main === 'settings' ? true : false }),
-          _react2.default.createElement(_list2.default, { appState: this.appState.bind(this), songs: this.state.songs, search: this.state.search, musicFolder: this.state.musicFolder, display: this.state.main === 'list' ? true : false })
+          _react2.default.createElement(_list2.default, { appState: this.appState.bind(this), songs: this.state.songs, songId: this.state.songId, search: this.state.search, musicFolder: this.state.musicFolder, display: this.state.main === 'list' ? true : false })
         ),
         _react2.default.createElement(_player2.default, { appState: this.appState.bind(this), songId: this.state.songId, songs: this.state.songs })
       );

@@ -537,6 +537,7 @@ body{
       font-size: .8em;
       font-weight: 300;
       color: #333;
+      transition: .1s;
 
       button{
         height: 1em;
@@ -552,7 +553,7 @@ body{
       }
 
       &.active{
-        font-weight: 700;
+        font-weight: 900;
       }
     }
   }

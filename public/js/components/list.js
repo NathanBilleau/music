@@ -78,7 +78,7 @@ var List = function (_React$Component) {
           appState: _this3.props.appState,
           songs: _this3.props.songs,
           path: item,
-          active: false });
+          active: _this3.props.songId === i ? true : false });
       });
 
       return _react2.default.createElement(

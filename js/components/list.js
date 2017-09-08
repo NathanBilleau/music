@@ -39,7 +39,7 @@ export default class List extends React.Component {
       appState={this.props.appState}
       songs={this.props.songs}
       path={item}
-      active={false} />
+      active={this.props.songId === i ? true : false} />
     )
 
     return (
