@@ -351,7 +351,7 @@ body {
         border-radius: 50px; }
   .app .list {
     width: calc(100% - 300px);
-    padding: 20px 150px;
+    padding: 0 150px;
     overflow: auto; }
     .app .list .track {
       width: 100%;
