@@ -351,25 +351,8 @@ body {
         border-radius: 50px; }
   .app .list {
     width: calc(100% - 300px);
-    padding: 0 150px;
+    padding: 20px 150px;
     overflow: auto; }
-    .app .list .filter {
-      width: 100%;
-      display: grid;
-      grid-template-columns: 31% 31% 31% 7%;
-      padding: 20px 0 5px; }
-      .app .list .filter input {
-        display: none; }
-      .app .list .filter :checked + span {
-        font-weight: 700; }
-      .app .list .filter label {
-        padding: 10px 15px;
-        text-align: left;
-        font-weight: 100;
-        text-transform: uppercase;
-        font-size: .9em;
-        color: #333;
-        cursor: pointer; }
     .app .list .track {
       width: 100%;
       padding: 15px;

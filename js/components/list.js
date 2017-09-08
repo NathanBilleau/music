@@ -44,22 +44,6 @@ export default class List extends React.Component {
 
     return (
       <div className={this.props.display === true ? "mainSection list" : "mainSection list hidden"}>
-        <div className="filter">
-          <label>
-            <input type="radio" name="filter" defaultChecked/>
-            <span>Title</span>
-          </label>
-
-          <label>
-            <input type="radio" name="filter"/>
-            <span>Artist</span>
-          </label>
-
-          <label>
-            <input type="radio" name="filter"/>
-            <span>Album</span>
-          </label>
-        </div>
 
         {track}
 

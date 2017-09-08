@@ -84,40 +84,6 @@ var List = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         { className: this.props.display === true ? "mainSection list" : "mainSection list hidden" },
-        _react2.default.createElement(
-          'div',
-          { className: 'filter' },
-          _react2.default.createElement(
-            'label',
-            null,
-            _react2.default.createElement('input', { type: 'radio', name: 'filter', defaultChecked: true }),
-            _react2.default.createElement(
-              'span',
-              null,
-              'Title'
-            )
-          ),
-          _react2.default.createElement(
-            'label',
-            null,
-            _react2.default.createElement('input', { type: 'radio', name: 'filter' }),
-            _react2.default.createElement(
-              'span',
-              null,
-              'Artist'
-            )
-          ),
-          _react2.default.createElement(
-            'label',
-            null,
-            _react2.default.createElement('input', { type: 'radio', name: 'filter' }),
-            _react2.default.createElement(
-              'span',
-              null,
-              'Album'
-            )
-          )
-        ),
         track
       );
     }
