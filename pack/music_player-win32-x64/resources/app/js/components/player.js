@@ -4,6 +4,14 @@ import path from 'path'
 import {shell} from 'electron'
 import fs from 'fs'
 import musicmetadata from 'musicmetadata'
+import Mousetrap from 'mousetrap'
+
+Mousetrap.addKeycodes({
+    179: 'playpause',
+    177: 'previous',
+    176: 'next',
+    173: 'volumeMute'
+})
 
 // Components
 
@@ -32,10 +40,58 @@ export default class Player extends React.Component {
 
     audioPlayer.volume = this.state.volume
     cover.style.backgroundImage = 'none'
+
+
+    audioPlayer.onended = () => {
+      this.next()
+    }
+
+    audioPlayer.ondurationchange = () => {
+      this.newSong()
+    }
+
+    // Keybinding
+
+    Mousetrap.bind(['playpause', 'space'], () => {
+      this.play()
+    })
+
+    Mousetrap.bind(['next', 'right'], () => {
+      this.next()
+    })
+
+    Mousetrap.bind(['previous', 'left'], () => {
+      this.previous()
+    })
+
+    Mousetrap.bind('up', () => {
+      let currentVolume = this.state.volume
+
+      this.setState({
+        volume: currentVolume + 0.1
+      })
+
+      this.volume()
+    })
+
+    Mousetrap.bind('down', () => {
+      let currentVolume = this.state.volume
+
+      this.setState({
+        volume: currentVolume - 0.1
+      })
+
+      this.volume()
+    })
+
+    Mousetrap.bind('volumeMute', () => {
+      this.mute()
+    })
+
+
   }
 
   newSong() {
-
     this.setState({song: this.props.songs[this.props.songId]})
 
     if (typeof this.state.song.picture != 'undefined') {
@@ -51,8 +107,7 @@ export default class Player extends React.Component {
         )
       })
     }
-
-
+    
   }
 
 
@@ -118,15 +173,16 @@ export default class Player extends React.Component {
   }
 
   progress() {
-    if (decodeURI(audioPlayer.src).replace('file:///', '') != this.state.song.path || Object.keys(this.state.song.path).length === 0) {
-      this.newSong()
-    }
-
     let duration = audioPlayer.duration
     let current = audioPlayer.currentTime
 
+    let percent = current / duration * 50
+
+
     cover.style.backgroundImage = 'none'
     if (typeof this.state.song.picture != 'undefined') {
+        cover.style.backgroundCenter = "center"
+        cover.style.backgroundSize = 100 + percent + "%"
         cover.style.backgroundImage = 'url("./img/cover/' + this.state.song.album + '.png")'
     }
 

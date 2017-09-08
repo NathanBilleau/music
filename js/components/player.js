@@ -10,8 +10,6 @@ Mousetrap.addKeycodes({
     179: 'playpause',
     177: 'previous',
     176: 'next',
-    174: 'volumeDown',
-    175: 'volumeUp',
     173: 'volumeMute'
 })
 
@@ -43,6 +41,7 @@ export default class Player extends React.Component {
     audioPlayer.volume = this.state.volume
     cover.style.backgroundImage = 'none'
 
+
     audioPlayer.onended = () => {
       this.next()
     }
@@ -53,28 +52,36 @@ export default class Player extends React.Component {
 
     // Keybinding
 
-    Mousetrap.bind('playpause', () => {
+    Mousetrap.bind(['playpause', 'space'], () => {
       this.play()
     })
 
-    Mousetrap.bind('next', () => {
+    Mousetrap.bind(['next', 'right'], () => {
       this.next()
     })
 
-    Mousetrap.bind('previous', () => {
+    Mousetrap.bind(['previous', 'left'], () => {
       this.previous()
     })
 
-    Mousetrap.bind('volumeUp', () => {
+    Mousetrap.bind('up', () => {
+      let currentVolume = this.state.volume
+
       this.setState({
-        volume: this.state.volume + 0.1
+        volume: currentVolume + 0.1
       })
+
+      this.volume()
     })
 
-    Mousetrap.bind('volumeDown', () => {
+    Mousetrap.bind('down', () => {
+      let currentVolume = this.state.volume
+
       this.setState({
-        volume: this.state.volume - 0.1
+        volume: currentVolume - 0.1
       })
+
+      this.volume()
     })
 
     Mousetrap.bind('volumeMute', () => {
@@ -85,7 +92,6 @@ export default class Player extends React.Component {
   }
 
   newSong() {
-
     this.setState({song: this.props.songs[this.props.songId]})
 
     if (typeof this.state.song.picture != 'undefined') {
@@ -101,8 +107,7 @@ export default class Player extends React.Component {
         )
       })
     }
-
-
+    
   }
 
 

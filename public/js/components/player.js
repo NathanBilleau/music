@@ -41,8 +41,6 @@ _mousetrap2.default.addKeycodes({
   179: 'playpause',
   177: 'previous',
   176: 'next',
-  174: 'volumeDown',
-  175: 'volumeUp',
   173: 'volumeMute'
 });
 
@@ -93,28 +91,36 @@ var Player = function (_React$Component) {
 
       // Keybinding
 
-      _mousetrap2.default.bind('playpause', function () {
+      _mousetrap2.default.bind(['playpause', 'space'], function () {
         _this2.play();
       });
 
-      _mousetrap2.default.bind('next', function () {
+      _mousetrap2.default.bind(['next', 'right'], function () {
         _this2.next();
       });
 
-      _mousetrap2.default.bind('previous', function () {
+      _mousetrap2.default.bind(['previous', 'left'], function () {
         _this2.previous();
       });
 
-      _mousetrap2.default.bind('volumeUp', function () {
+      _mousetrap2.default.bind('up', function () {
+        var currentVolume = _this2.state.volume;
+
         _this2.setState({
-          volume: _this2.state.volume + 0.1
+          volume: currentVolume + 0.1
         });
+
+        _this2.volume();
       });
 
-      _mousetrap2.default.bind('volumeDown', function () {
+      _mousetrap2.default.bind('down', function () {
+        var currentVolume = _this2.state.volume;
+
         _this2.setState({
-          volume: _this2.state.volume - 0.1
+          volume: currentVolume - 0.1
         });
+
+        _this2.volume();
       });
 
       _mousetrap2.default.bind('volumeMute', function () {
@@ -124,7 +130,6 @@ var Player = function (_React$Component) {
   }, {
     key: 'newSong',
     value: function newSong() {
-
       this.setState({ song: this.props.songs[this.props.songId] });
 
       if (typeof this.state.song.picture != 'undefined') {

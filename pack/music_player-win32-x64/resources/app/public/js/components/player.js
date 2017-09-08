@@ -24,6 +24,10 @@ var _musicmetadata = require('musicmetadata');
 
 var _musicmetadata2 = _interopRequireDefault(_musicmetadata);
 
+var _mousetrap = require('mousetrap');
+
+var _mousetrap2 = _interopRequireDefault(_mousetrap);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -32,6 +36,13 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // Librairies
 
+
+_mousetrap2.default.addKeycodes({
+  179: 'playpause',
+  177: 'previous',
+  176: 'next',
+  173: 'volumeMute'
+});
 
 // Components
 
@@ -61,17 +72,64 @@ var Player = function (_React$Component) {
   _createClass(Player, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
+      var _this2 = this;
+
       var audioPlayer = document.getElementById('audioPlayer');
       var audioVolume = document.getElementById('audioVolume');
       var audioSeek = document.getElementById('audioSeek');
 
       audioPlayer.volume = this.state.volume;
       cover.style.backgroundImage = 'none';
+
+      audioPlayer.onended = function () {
+        _this2.next();
+      };
+
+      audioPlayer.ondurationchange = function () {
+        _this2.newSong();
+      };
+
+      // Keybinding
+
+      _mousetrap2.default.bind(['playpause', 'space'], function () {
+        _this2.play();
+      });
+
+      _mousetrap2.default.bind(['next', 'right'], function () {
+        _this2.next();
+      });
+
+      _mousetrap2.default.bind(['previous', 'left'], function () {
+        _this2.previous();
+      });
+
+      _mousetrap2.default.bind('up', function () {
+        var currentVolume = _this2.state.volume;
+
+        _this2.setState({
+          volume: currentVolume + 0.1
+        });
+
+        _this2.volume();
+      });
+
+      _mousetrap2.default.bind('down', function () {
+        var currentVolume = _this2.state.volume;
+
+        _this2.setState({
+          volume: currentVolume - 0.1
+        });
+
+        _this2.volume();
+      });
+
+      _mousetrap2.default.bind('volumeMute', function () {
+        _this2.mute();
+      });
     }
   }, {
     key: 'newSong',
     value: function newSong() {
-
       this.setState({ song: this.props.songs[this.props.songId] });
 
       if (typeof this.state.song.picture != 'undefined') {
@@ -150,15 +208,15 @@ var Player = function (_React$Component) {
   }, {
     key: 'progress',
     value: function progress() {
-      if (decodeURI(audioPlayer.src).replace('file:///', '') != this.state.song.path || Object.keys(this.state.song.path).length === 0) {
-        this.newSong();
-      }
-
       var duration = audioPlayer.duration;
       var current = audioPlayer.currentTime;
 
+      var percent = current / duration * 50;
+
       cover.style.backgroundImage = 'none';
       if (typeof this.state.song.picture != 'undefined') {
+        cover.style.backgroundCenter = "center";
+        cover.style.backgroundSize = 100 + percent + "%";
         cover.style.backgroundImage = 'url("./img/cover/' + this.state.song.album + '.png")';
       }
 
@@ -176,17 +234,17 @@ var Player = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       var audio = void 0;
 
       if (typeof this.props.songs[this.props.songId] != 'undefined') {
         audio = _react2.default.createElement('audio', { src: this.props.songs[this.props.songId].path, className: 'hidden', id: 'audioPlayer', autoPlay: true, onTimeUpdate: function onTimeUpdate() {
-            return _this2.progress();
+            return _this3.progress();
           } });
       } else {
         audio = _react2.default.createElement('audio', { className: 'hidden', id: 'audioPlayer', autoPlay: true, onTimeUpdate: function onTimeUpdate() {
-            return _this2.progress();
+            return _this3.progress();
           } });
       }
 
@@ -228,7 +286,7 @@ var Player = function (_React$Component) {
             )
           ),
           _react2.default.createElement('input', { type: 'range', min: '0', max: this.state.duration, id: 'audioSeek', className: 'progressbar gradient', value: this.state.current, onChange: function onChange() {
-              return _this2.seek();
+              return _this3.seek();
             } }),
           _react2.default.createElement(
             'div',
@@ -236,21 +294,21 @@ var Player = function (_React$Component) {
             _react2.default.createElement(
               'button',
               { onClick: function onClick() {
-                  return _this2.previous();
+                  return _this3.previous();
                 } },
               _react2.default.createElement('img', { src: './img/previous.svg' })
             ),
             _react2.default.createElement(
               'button',
               { onClick: function onClick() {
-                  return _this2.play();
+                  return _this3.play();
                 } },
               _react2.default.createElement('img', { src: "./img/" + this.state.button + ".svg" })
             ),
             _react2.default.createElement(
               'button',
               { onClick: function onClick() {
-                  return _this2.next();
+                  return _this3.next();
                 } },
               _react2.default.createElement('img', { src: './img/next.svg' })
             )
@@ -265,21 +323,21 @@ var Player = function (_React$Component) {
             _react2.default.createElement(
               'button',
               { onClick: function onClick() {
-                  return _this2.random();
+                  return _this3.random();
                 } },
               _react2.default.createElement('img', { src: './img/shuffle.svg' })
             ),
             _react2.default.createElement(
               'button',
               { onClick: function onClick() {
-                  return _this2.mute();
+                  return _this3.mute();
                 } },
               _react2.default.createElement('img', { src: './img/mute.svg' })
             ),
             _react2.default.createElement(
               'button',
               { onClick: function onClick() {
-                  return _this2.folder();
+                  return _this3.folder();
                 } },
               _react2.default.createElement('img', { src: './img/folder.svg' })
             )
@@ -288,7 +346,7 @@ var Player = function (_React$Component) {
             'div',
             { className: 'volume' },
             _react2.default.createElement('input', { type: 'range', min: '0', max: '1', step: '0.001', value: this.state.volume, id: 'audioVolume', onChange: function onChange() {
-                return _this2.volume();
+                return _this3.volume();
               } })
           )
         )
