@@ -528,7 +528,7 @@ body{
       }
 
       &:hover{
-        transform: translateX(10px);
+        border-left: 10px solid #333;
       }
 
       &.active{
