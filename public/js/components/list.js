@@ -71,13 +71,14 @@ var List = function (_React$Component) {
         return _path2.default.parse(item).name.toLowerCase().search(_this3.props.search) != -1;
       });
 
-      var track = selection.map(function (item, i) {
+      var track = this.state.files.map(function (item, i) {
         return _react2.default.createElement(_track2.default, {
           key: i,
           id: i,
           appState: _this3.props.appState,
           songs: _this3.props.songs,
           path: item,
+          search: _this3.props.search,
           active: _this3.props.songId === i ? true : false });
       });
 

@@ -527,8 +527,16 @@ body{
         }
       }
 
+      &:hover{
+        transform: translateX(10px);
+      }
+
       &.active{
         font-weight: 900;
+      }
+
+      &.searched{
+        transform: scale(1.05);
       }
     }
   }

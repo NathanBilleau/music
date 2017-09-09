@@ -18,6 +18,7 @@ export default class Track extends React.Component {
     }
   }
 
+
   componentDidMount() {
     let stream = fs.createReadStream(this.props.path)
     let song = {
@@ -57,6 +58,7 @@ export default class Track extends React.Component {
 
 
 
+
   }
 
   play() {
@@ -67,9 +69,21 @@ export default class Track extends React.Component {
 
   render() {
 
+    let className = 'track'
+
+    if (this.props.active === true) {
+      className += ' active'
+    }
+
+    if (typeof this.state.song.title != 'undefined' &&
+    this.props.search != ' ' &&
+    this.props.search != '' && 
+    this.state.song.title.toLowerCase().search(this.props.search) != -1) {
+      className += ' searched'
+    }
 
     return (
-      <div className={this.props.active === true ? 'track active' : 'track'}>
+      <div className={className}>
         <h1>
           {this.state.song.title}
         </h1>

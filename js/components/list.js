@@ -31,14 +31,14 @@ export default class List extends React.Component {
       return path.parse(item).name.toLowerCase().search(this.props.search) != -1
     })
 
-
-    let track = selection.map((item, i) =>
+    let track = this.state.files.map((item, i) =>
       <Track
       key={i}
       id={i}
       appState={this.props.appState}
       songs={this.props.songs}
       path={item}
+      search={this.props.search}
       active={this.props.songId === i ? true : false} />
     )
 

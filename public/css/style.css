@@ -373,5 +373,9 @@ body {
         outline: none; }
         .app .list .track button img {
           height: 100%; }
+      .app .list .track:hover {
+        transform: translateX(10px); }
       .app .list .track.active {
         font-weight: 900; }
+      .app .list .track.searched {
+        transform: scale(1.05); }

@@ -101,9 +101,19 @@ var Track = function (_React$Component) {
     value: function render() {
       var _this3 = this;
 
+      var className = 'track';
+
+      if (this.props.active === true) {
+        className += ' active';
+      }
+
+      if (typeof this.state.song.title != 'undefined' && this.props.search != ' ' && this.props.search != '' && this.state.song.title.toLowerCase().search(this.props.search) != -1) {
+        className += ' searched';
+      }
+
       return _react2.default.createElement(
         'div',
-        { className: this.props.active === true ? 'track active' : 'track' },
+        { className: className },
         _react2.default.createElement(
           'h1',
           null,
