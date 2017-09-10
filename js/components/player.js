@@ -129,17 +129,37 @@ export default class Player extends React.Component {
   }
 
   previous() {
-    let currentIndex = this.state.song.id - 1
+    let newId
+    if (this.props.random) {
+      newId = Math.floor((Math.random() * this.props.songs.length))
+      console.log(this.props.songs.length);
+    }
+    else{
+      newId = 1
+    }
+
+    let currentIndex = this.state.song.id - newId
     this.props.appState({songId: currentIndex})
+
   }
 
   next() {
-    let currentIndex = this.state.song.id + 1
+    let newId
+    if (this.props.random) {
+      newId = Math.floor((Math.random() * this.props.songs.length))
+      console.log(this.props.songs.length);
+    }
+    else{
+      newId = 1
+    }
+
+    let currentIndex = this.state.song.id + newId
     this.props.appState({songId: currentIndex})
+
   }
 
   random() {
-    this.props.appState({random: true})
+    this.props.appState({random: !this.props.random})
   }
 
   mute() {
@@ -264,7 +284,7 @@ export default class Player extends React.Component {
         <div className="controlsSecondaryContainer">
 
           <div className="controlsSecondary">
-            <button onClick={() => this.random()}>
+            <button onClick={() => this.random()} className={this.props.random === true ? 'randomEnabled' : 'randomDisabled'}>
               <img src="./img/shuffle.svg" />
             </button>
 

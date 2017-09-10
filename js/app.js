@@ -22,7 +22,7 @@ class App extends React.Component {
       musicFolder: '',
       songId: 0,
       songs: [],
-      random: false
+      random: true
     }
   }
 
@@ -49,7 +49,7 @@ class App extends React.Component {
           <List appState={this.appState.bind(this)} songs={this.state.songs} songId={this.state.songId} search={this.state.search} musicFolder={this.state.musicFolder} display={this.state.main === 'list' ? true : false} />
         </div>
 
-        <Player appState={this.appState.bind(this)} songId={this.state.songId} songs={this.state.songs}/>
+        <Player appState={this.appState.bind(this)} songId={this.state.songId} songs={this.state.songs} random={this.state.random} />
 
       </div>
     )

@@ -61,7 +61,7 @@ var App = function (_React$Component) {
       musicFolder: '',
       songId: 0,
       songs: [],
-      random: false
+      random: true
     };
     return _this;
   }
@@ -94,7 +94,7 @@ var App = function (_React$Component) {
           _react2.default.createElement(_settings2.default, { appState: this.appState.bind(this), display: this.state.main === 'settings' ? true : false }),
           _react2.default.createElement(_list2.default, { appState: this.appState.bind(this), songs: this.state.songs, songId: this.state.songId, search: this.state.search, musicFolder: this.state.musicFolder, display: this.state.main === 'list' ? true : false })
         ),
-        _react2.default.createElement(_player2.default, { appState: this.appState.bind(this), songId: this.state.songId, songs: this.state.songs })
+        _react2.default.createElement(_player2.default, { appState: this.appState.bind(this), songId: this.state.songId, songs: this.state.songs, random: this.state.random })
       );
     }
   }]);

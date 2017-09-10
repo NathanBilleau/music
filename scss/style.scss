@@ -335,10 +335,18 @@ body{
           width: 30px;
           cursor: pointer;
           outline: none;
+          transition: .1s;
+
+
+          &.randomEnabled{
+            transform: scale(1.2);
+          }
+
 
           img{
             height: 50%;
           }
+
         }
       }
 

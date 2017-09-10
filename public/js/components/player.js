@@ -162,19 +162,35 @@ var Player = function (_React$Component) {
   }, {
     key: 'previous',
     value: function previous() {
-      var currentIndex = this.state.song.id - 1;
+      var newId = void 0;
+      if (this.props.random) {
+        newId = Math.floor(Math.random() * this.props.songs.length);
+        console.log(this.props.songs.length);
+      } else {
+        newId = 1;
+      }
+
+      var currentIndex = this.state.song.id - newId;
       this.props.appState({ songId: currentIndex });
     }
   }, {
     key: 'next',
     value: function next() {
-      var currentIndex = this.state.song.id + 1;
+      var newId = void 0;
+      if (this.props.random) {
+        newId = Math.floor(Math.random() * this.props.songs.length);
+        console.log(this.props.songs.length);
+      } else {
+        newId = 1;
+      }
+
+      var currentIndex = this.state.song.id + newId;
       this.props.appState({ songId: currentIndex });
     }
   }, {
     key: 'random',
     value: function random() {
-      this.props.appState({ random: true });
+      this.props.appState({ random: !this.props.random });
     }
   }, {
     key: 'mute',
@@ -324,7 +340,7 @@ var Player = function (_React$Component) {
               'button',
               { onClick: function onClick() {
                   return _this3.random();
-                } },
+                }, className: this.props.random === true ? 'randomEnabled' : 'randomDisabled' },
               _react2.default.createElement('img', { src: './img/shuffle.svg' })
             ),
             _react2.default.createElement(
