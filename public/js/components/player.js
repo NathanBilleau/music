@@ -231,8 +231,6 @@ var Player = function (_React$Component) {
 
       cover.style.backgroundImage = 'none';
       if (typeof this.state.song.picture != 'undefined') {
-        cover.style.backgroundCenter = "center";
-        cover.style.backgroundSize = 100 + percent + "%";
         cover.style.backgroundImage = 'url("./img/cover/' + this.state.song.album + '.png")';
       }
 
@@ -301,7 +299,7 @@ var Player = function (_React$Component) {
               secondsToMinutes(this.state.duration)
             )
           ),
-          _react2.default.createElement('input', { type: 'range', min: '-0.1', max: this.state.duration, id: 'audioSeek', className: 'progressbar gradient', value: this.state.current, onChange: function onChange() {
+          _react2.default.createElement('input', { type: 'range', min: '0', max: this.state.duration, id: 'audioSeek', className: 'progressbar gradient', value: this.state.current, onChange: function onChange() {
               return _this3.seek();
             } }),
           _react2.default.createElement(

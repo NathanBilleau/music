@@ -200,8 +200,6 @@ export default class Player extends React.Component {
 
     cover.style.backgroundImage = 'none'
     if (typeof this.state.song.picture != 'undefined') {
-        cover.style.backgroundCenter = "center"
-        cover.style.backgroundSize = 100 + percent + "%"
         cover.style.backgroundImage = 'url("./img/cover/' + this.state.song.album + '.png")'
     }
 
@@ -260,7 +258,7 @@ export default class Player extends React.Component {
             </span>
           </div>
 
-          <input type="range" min="-0.1" max={this.state.duration} id="audioSeek" className="progressbar gradient" value={this.state.current} onChange={() => this.seek()} />
+          <input type="range" min="0" max={this.state.duration} id="audioSeek" className="progressbar gradient" value={this.state.current} onChange={() => this.seek()} />
 
           <div className="controls">
             <button onClick={() => this.previous()}>

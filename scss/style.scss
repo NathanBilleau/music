@@ -198,9 +198,14 @@ body{
       border: 5px solid #333;
       border-radius: 5px;
       background-position: center;
+      background-size: 100%;
       transition: .2s;
       margin: auto;
       cursor: pointer;
+
+      &:hover {
+        background-size: 150%;
+      }
     }
 
     .time{
