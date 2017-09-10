@@ -260,7 +260,7 @@ export default class Player extends React.Component {
             </span>
           </div>
 
-          <input type="range" min="0" max={this.state.duration} id="audioSeek" className="progressbar gradient" value={this.state.current} onChange={() => this.seek()} />
+          <input type="range" min="-0.1" max={this.state.duration} id="audioSeek" className="progressbar gradient" value={this.state.current} onChange={() => this.seek()} />
 
           <div className="controls">
             <button onClick={() => this.previous()}>
@@ -284,11 +284,11 @@ export default class Player extends React.Component {
         <div className="controlsSecondaryContainer">
 
           <div className="controlsSecondary">
-            <button onClick={() => this.random()} className={this.props.random === true ? 'randomEnabled' : 'randomDisabled'}>
+            <button onClick={() => this.random()} className={this.props.random === true ? 'enabled' : 'disabled'}>
               <img src="./img/shuffle.svg" />
             </button>
 
-            <button onClick={() => this.mute()}>
+            <button onClick={() => this.mute()} className={this.state.volume === 0 ? 'enabled' : 'disabled'}>
               <img src="./img/mute.svg" />
             </button>
 

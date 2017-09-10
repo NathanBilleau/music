@@ -61,7 +61,7 @@ var App = function (_React$Component) {
       musicFolder: '',
       songId: 0,
       songs: [],
-      random: true
+      random: false
     };
     return _this;
   }

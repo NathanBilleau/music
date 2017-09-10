@@ -301,7 +301,7 @@ var Player = function (_React$Component) {
               secondsToMinutes(this.state.duration)
             )
           ),
-          _react2.default.createElement('input', { type: 'range', min: '0', max: this.state.duration, id: 'audioSeek', className: 'progressbar gradient', value: this.state.current, onChange: function onChange() {
+          _react2.default.createElement('input', { type: 'range', min: '-0.1', max: this.state.duration, id: 'audioSeek', className: 'progressbar gradient', value: this.state.current, onChange: function onChange() {
               return _this3.seek();
             } }),
           _react2.default.createElement(
@@ -340,14 +340,14 @@ var Player = function (_React$Component) {
               'button',
               { onClick: function onClick() {
                   return _this3.random();
-                }, className: this.props.random === true ? 'randomEnabled' : 'randomDisabled' },
+                }, className: this.props.random === true ? 'enabled' : 'disabled' },
               _react2.default.createElement('img', { src: './img/shuffle.svg' })
             ),
             _react2.default.createElement(
               'button',
               { onClick: function onClick() {
                   return _this3.mute();
-                } },
+                }, className: this.state.volume === 0 ? 'enabled' : 'disabled' },
               _react2.default.createElement('img', { src: './img/mute.svg' })
             ),
             _react2.default.createElement(

@@ -22,7 +22,7 @@ class App extends React.Component {
       musicFolder: '',
       songId: 0,
       songs: [],
-      random: true
+      random: false
     }
   }
 

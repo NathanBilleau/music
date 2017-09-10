@@ -242,7 +242,7 @@ body {
           cursor: pointer;
           outline: none;
           transition: .1s; }
-          .app .playerSection .controlsSecondaryContainer .controlsSecondary button.randomEnabled {
+          .app .playerSection .controlsSecondaryContainer .controlsSecondary button.enabled {
             transform: scale(1.2); }
           .app .playerSection .controlsSecondaryContainer .controlsSecondary button img {
             height: 50%; }
