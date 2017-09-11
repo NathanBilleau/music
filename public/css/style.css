@@ -1,5 +1,14 @@
 @import url(./reset.css);
 @import url(./Montserrat/stylesheet.css);
+::-webkit-scrollbar {
+  background-color: #f3f3f3;
+  width: 7px;
+  border-radius: 20px; }
+
+::-webkit-scrollbar-thumb {
+  background-color: #333;
+  border-radius: 20px; }
+
 .color .TealLove {
   background: #AAFFA9;
   background: -webkit-linear-gradient(to left, #11FFBD, #AAFFA9);
