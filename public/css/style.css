@@ -379,6 +379,10 @@ body {
       font-weight: 300;
       color: #333;
       transition: .1s; }
+      .app .list .track:first-of-type {
+        margin-top: 30px; }
+      .app .list .track:last-of-type {
+        margin-bottom: 30px; }
       .app .list .track button {
         height: 1em;
         padding: 0;
