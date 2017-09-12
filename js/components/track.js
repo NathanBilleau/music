@@ -54,10 +54,8 @@ export default class Track extends React.Component {
         this.props.appState({
           songs: [...this.props.songs, this.state.song]
         })
-      }, 50)
 
-
-
+      }, 500)
 
   }
 
@@ -77,10 +75,12 @@ export default class Track extends React.Component {
 
     if (typeof this.state.song.title != 'undefined' &&
     this.props.search != ' ' &&
-    this.props.search != '' && 
+    this.props.search != '' &&
     this.state.song.title.toLowerCase().search(this.props.search) != -1) {
       className += ' searched'
     }
+
+
 
     return (
       <div className={className}>

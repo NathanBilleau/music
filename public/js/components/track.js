@@ -87,7 +87,7 @@ var Track = function (_React$Component) {
         _this2.props.appState({
           songs: [].concat(_toConsumableArray(_this2.props.songs), [_this2.state.song])
         });
-      }, 50);
+      }, 500);
     }
   }, {
     key: 'play',

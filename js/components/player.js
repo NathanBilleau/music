@@ -13,11 +13,10 @@ Mousetrap.addKeycodes({
     173: 'volumeMute'
 })
 
-// Components
 
 
-function secondsToMinutes(time){
-    return Math.floor(time / 60)+':'+Math.floor(time % 60);
+function secondsToMinutes(time) {
+    return Math.floor(time / 60)+':'+Math.floor(time % 60)
 }
 
 export default class Player extends React.Component {
