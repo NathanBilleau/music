@@ -64,11 +64,6 @@ var Top = function (_React$Component) {
                 return _this2.props.appState({ main: 'settings' });
               } },
             _react2.default.createElement('img', { src: './img/settings.svg' })
-          ),
-          _react2.default.createElement(
-            'button',
-            null,
-            _react2.default.createElement('img', { src: './img/refresh.svg' })
           )
         ),
         _react2.default.createElement(

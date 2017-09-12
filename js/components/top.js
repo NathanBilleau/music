@@ -35,10 +35,6 @@ export default class Top extends React.Component {
             <img src="./img/settings.svg" />
           </button>
 
-          <button>
-            <img src="./img/refresh.svg" />
-          </button>
-
         </div>
         <div className="search">
 
