@@ -57,30 +57,44 @@ var List = function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      (0, _glob2.default)(this.props.musicFolder + "\\**\\*.mp3", function (err, files) {
-        _this2.setState({ files: files });
-        _this2.props.appState({ main: 'list' });
-      });
+      if (this.props.musicFolder != "") {
+        (0, _glob2.default)(this.props.musicFolder + "\\**\\*.mp3", function (err, files) {
+          _this2.setState({ files: files });
+          _this2.props.appState({ main: 'list' });
+        });
+      } else {
+        this.props.appState({ main: 'list' });
+      }
     }
   }, {
     key: 'render',
     value: function render() {
       var _this3 = this;
 
-      var selection = this.state.files.filter(function (item) {
-        return _path2.default.parse(item).name.toLowerCase().search(_this3.props.search) != -1;
-      });
+      var track = void 0;
 
-      var track = this.state.files.map(function (item, i) {
-        return _react2.default.createElement(_track2.default, {
-          key: i,
-          id: i,
-          appState: _this3.props.appState,
-          songs: _this3.props.songs,
-          path: item,
-          search: _this3.props.search,
-          active: _this3.props.songId === i ? true : false });
-      });
+      if (this.props.musicFolder === "") {
+        track = _react2.default.createElement(
+          'h1',
+          null,
+          'Please select your music folder in settings and restart.'
+        );
+      } else {
+        var selection = this.state.files.filter(function (item) {
+          return _path2.default.parse(item).name.toLowerCase().search(_this3.props.search) != -1;
+        });
+
+        track = this.state.files.map(function (item, i) {
+          return _react2.default.createElement(_track2.default, {
+            key: i,
+            id: i,
+            appState: _this3.props.appState,
+            songs: _this3.props.songs,
+            path: item,
+            search: _this3.props.search,
+            active: _this3.props.songId === i ? true : false });
+        });
+      }
 
       return _react2.default.createElement(
         'div',
