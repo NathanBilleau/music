@@ -1,5 +1,14 @@
 @import url(./reset.css);
 @import url(./Montserrat/stylesheet.css);
+::-webkit-scrollbar {
+  background-color: #f3f3f3;
+  width: 7px;
+  border-radius: 20px; }
+
+::-webkit-scrollbar-thumb {
+  background-color: #333;
+  border-radius: 20px; }
+
 .color .TealLove {
   background: #AAFFA9;
   background: -webkit-linear-gradient(to left, #11FFBD, #AAFFA9);
@@ -118,7 +127,8 @@ body {
       text-transform: uppercase; }
     .app .playerSection h1 {
       font-size: 2.3em;
-      font-weight: 900; }
+      font-weight: 900;
+      word-wrap: break-word; }
     .app .playerSection h2 {
       font-size: 1em;
       font-weight: 100;
@@ -129,9 +139,12 @@ body {
       border: 5px solid #333;
       border-radius: 5px;
       background-position: center;
+      background-size: 100%;
       transition: .2s;
       margin: auto;
       cursor: pointer; }
+      .app .playerSection .cover:hover {
+        background-size: 150%; }
     .app .playerSection .time {
       padding: 10px 0;
       text-align: center;
@@ -239,7 +252,10 @@ body {
           height: 30px;
           width: 30px;
           cursor: pointer;
-          outline: none; }
+          outline: none;
+          transition: .1s; }
+          .app .playerSection .controlsSecondaryContainer .controlsSecondary button.enabled {
+            transform: scale(1.2); }
           .app .playerSection .controlsSecondaryContainer .controlsSecondary button img {
             height: 50%; }
       .app .playerSection .controlsSecondaryContainer .volume {
@@ -352,23 +368,6 @@ body {
     width: calc(100% - 300px);
     padding: 0 150px;
     overflow: auto; }
-    .app .list .filter {
-      width: 100%;
-      display: grid;
-      grid-template-columns: 31% 31% 31% 7%;
-      padding: 20px 0 5px; }
-      .app .list .filter input {
-        display: none; }
-      .app .list .filter :checked + span {
-        font-weight: 700; }
-      .app .list .filter label {
-        padding: 10px 15px;
-        text-align: left;
-        font-weight: 100;
-        text-transform: uppercase;
-        font-size: .9em;
-        color: #333;
-        cursor: pointer; }
     .app .list .track {
       width: 100%;
       padding: 15px;
@@ -378,7 +377,12 @@ body {
       grid-template-columns: 31% 31% 31% 7%;
       font-size: .8em;
       font-weight: 300;
-      color: #333; }
+      color: #333;
+      transition: .1s; }
+      .app .list .track:first-of-type {
+        margin-top: 30px; }
+      .app .list .track:last-of-type {
+        margin-bottom: 30px; }
       .app .list .track button {
         height: 1em;
         padding: 0;
@@ -388,5 +392,9 @@ body {
         outline: none; }
         .app .list .track button img {
           height: 100%; }
+      .app .list .track:hover {
+        border-left: 10px solid #333; }
       .app .list .track.active {
-        font-weight: 700; }
+        font-weight: 900; }
+      .app .list .track.searched {
+        transform: scale(1.05); }

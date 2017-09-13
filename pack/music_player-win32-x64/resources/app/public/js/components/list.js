@@ -71,53 +71,20 @@ var List = function (_React$Component) {
         return _path2.default.parse(item).name.toLowerCase().search(_this3.props.search) != -1;
       });
 
-      var track = selection.map(function (item, i) {
+      var track = this.state.files.map(function (item, i) {
         return _react2.default.createElement(_track2.default, {
           key: i,
           id: i,
           appState: _this3.props.appState,
           songs: _this3.props.songs,
           path: item,
-          active: false });
+          search: _this3.props.search,
+          active: _this3.props.songId === i ? true : false });
       });
 
       return _react2.default.createElement(
         'div',
         { className: this.props.display === true ? "mainSection list" : "mainSection list hidden" },
-        _react2.default.createElement(
-          'div',
-          { className: 'filter' },
-          _react2.default.createElement(
-            'label',
-            null,
-            _react2.default.createElement('input', { type: 'radio', name: 'filter', defaultChecked: true }),
-            _react2.default.createElement(
-              'span',
-              null,
-              'Title'
-            )
-          ),
-          _react2.default.createElement(
-            'label',
-            null,
-            _react2.default.createElement('input', { type: 'radio', name: 'filter' }),
-            _react2.default.createElement(
-              'span',
-              null,
-              'Artist'
-            )
-          ),
-          _react2.default.createElement(
-            'label',
-            null,
-            _react2.default.createElement('input', { type: 'radio', name: 'filter' }),
-            _react2.default.createElement(
-              'span',
-              null,
-              'Album'
-            )
-          )
-        ),
         track
       );
     }

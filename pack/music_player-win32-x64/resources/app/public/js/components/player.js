@@ -44,9 +44,6 @@ _mousetrap2.default.addKeycodes({
   173: 'volumeMute'
 });
 
-// Components
-
-
 function secondsToMinutes(time) {
   return Math.floor(time / 60) + ':' + Math.floor(time % 60);
 }
@@ -162,19 +159,35 @@ var Player = function (_React$Component) {
   }, {
     key: 'previous',
     value: function previous() {
-      var currentIndex = this.state.song.id - 1;
+      var newId = void 0;
+      if (this.props.random) {
+        newId = Math.floor(Math.random() * this.props.songs.length);
+        console.log(this.props.songs.length);
+      } else {
+        newId = 1;
+      }
+
+      var currentIndex = this.state.song.id - newId;
       this.props.appState({ songId: currentIndex });
     }
   }, {
     key: 'next',
     value: function next() {
-      var currentIndex = this.state.song.id + 1;
+      var newId = void 0;
+      if (this.props.random) {
+        newId = Math.floor(Math.random() * this.props.songs.length);
+        console.log(this.props.songs.length);
+      } else {
+        newId = 1;
+      }
+
+      var currentIndex = this.state.song.id + newId;
       this.props.appState({ songId: currentIndex });
     }
   }, {
     key: 'random',
     value: function random() {
-      this.props.appState({ random: true });
+      this.props.appState({ random: !this.props.random });
     }
   }, {
     key: 'mute',
@@ -215,8 +228,6 @@ var Player = function (_React$Component) {
 
       cover.style.backgroundImage = 'none';
       if (typeof this.state.song.picture != 'undefined') {
-        cover.style.backgroundCenter = "center";
-        cover.style.backgroundSize = 100 + percent + "%";
         cover.style.backgroundImage = 'url("./img/cover/' + this.state.song.album + '.png")';
       }
 
@@ -258,12 +269,12 @@ var Player = function (_React$Component) {
           _react2.default.createElement(
             'h1',
             null,
-            this.state.song.title
+            typeof this.state.song.title != 'undefined' && this.state.song.title.length >= 20 ? this.state.song.title.slice(0, 20) + '...' : this.state.song.title
           ),
           _react2.default.createElement(
             'h2',
             null,
-            this.state.song.artist
+            typeof this.state.song.artist != 'undefined' && this.state.song.artist.length >= 20 ? this.state.song.artist.slice(0, 20) + '...' : this.state.song.artist
           )
         ),
         _react2.default.createElement(
@@ -324,14 +335,14 @@ var Player = function (_React$Component) {
               'button',
               { onClick: function onClick() {
                   return _this3.random();
-                } },
+                }, className: this.props.random === true ? 'enabled' : 'disabled' },
               _react2.default.createElement('img', { src: './img/shuffle.svg' })
             ),
             _react2.default.createElement(
               'button',
               { onClick: function onClick() {
                   return _this3.mute();
-                } },
+                }, className: this.state.volume === 0 ? 'enabled' : 'disabled' },
               _react2.default.createElement('img', { src: './img/mute.svg' })
             ),
             _react2.default.createElement(

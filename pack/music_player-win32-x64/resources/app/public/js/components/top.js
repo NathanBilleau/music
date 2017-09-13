@@ -41,6 +41,13 @@ var Top = function (_React$Component) {
       this.props.appState({ search: searchField });
     }
   }, {
+    key: 'clean',
+    value: function clean() {
+      var searchField = document.getElementById('searchField');
+      searchField.value = '';
+      this.props.appState({ search: '' });
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
@@ -57,11 +64,6 @@ var Top = function (_React$Component) {
                 return _this2.props.appState({ main: 'settings' });
               } },
             _react2.default.createElement('img', { src: './img/settings.svg' })
-          ),
-          _react2.default.createElement(
-            'button',
-            null,
-            _react2.default.createElement('img', { src: './img/refresh.svg' })
           )
         ),
         _react2.default.createElement(
@@ -73,9 +75,9 @@ var Top = function (_React$Component) {
           _react2.default.createElement(
             'button',
             { className: 'gradient', onClick: function onClick() {
-                return _this2.submit();
+                return _this2.clean();
               } },
-            _react2.default.createElement('img', { src: './img/search.svg' })
+            _react2.default.createElement('img', { src: './img/delete.svg' })
           )
         )
       );
