@@ -10,7 +10,7 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _config = require('..\\config.json');
+var _config = require('../config.json');
 
 var _config2 = _interopRequireDefault(_config);
 

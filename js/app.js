@@ -1,7 +1,7 @@
 // Librairies
 import React from 'react'
 import ReactDOM from 'react-dom'
-import config from '..\\config.json'
+import config from '../config.json'
 
 // Components
 import Top from './js/components/top'
