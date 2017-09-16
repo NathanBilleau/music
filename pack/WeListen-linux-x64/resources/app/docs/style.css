@@ -1,0 +1,97 @@
+body {
+  background: #333;
+}
+
+h1 {
+  font-family: 'Montserrat', sans-serif;
+  text-transform: uppercase;
+  color: #fff;
+  text-align: center;
+  font-size: 7vh;
+  font-weight: 900;
+}
+
+h1 span {
+  font-size: 1.1em;
+}
+
+img {
+  width: 60vw;
+  margin: auto;
+  display: block;
+  box-shadow: 0 0 50px #000;
+  transition: .2s;
+}
+
+img:hover{
+  transform: scale(1.05);
+}
+
+a.dlButton {
+  background: #00d2ff;
+  background: -webkit-linear-gradient(to right, #00d2ff, #3a7bd5);
+  background: linear-gradient(to right, #00d2ff, #3a7bd5);
+  color: #fff;
+  text-transform: uppercase;
+  border: none;
+  margin: auto;
+  display: block;
+  box-shadow: 0 0 20px rgba(0,0,0,.5);
+  padding:20px;
+  width: 30vw;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  text-align: center;
+  transform: translateY(-50%);
+  text-decoration: none;
+  font-size: 2vw;
+}
+
+.dlButton i {
+  padding-right: 50px;
+}
+
+.platform {
+  padding: 200px 0;
+  width: 45%;
+  display: flex;
+  margin: auto;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.platform .platformItem {
+  flex-direction: column;
+  display: inline-flex;
+  text-align: center;
+}
+
+.platform .platformItem i {
+  color: #fff;
+  font-size: 6em;
+}
+
+.platform .platformItem a {
+  font-family: 'Montserrat', sans-serif;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 200;
+  font-size: 2em;
+  padding: 50px 0 10px;
+  transition: .1s;
+}
+
+h3 {
+  font-family: 'Montserrat', sans-serif;
+  color: #fff;
+  text-align: center;
+  font-weight: 300;
+  font-size: 1em;
+}
+
+h3 a {
+  font-family: 'Montserrat', sans-serif;
+  text-decoration: none;
+  font-weight: 700;
+  color: #fff;
+}
