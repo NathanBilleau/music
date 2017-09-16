@@ -2,8 +2,7 @@
 import React from 'react'
 import fs from 'fs'
 import path from 'path'
-// import {dialog} from 'electron'
-import config from '..\\..\\..\\config.json'
+import config from '../../../config.json'
 import {remote} from 'electron'
 // Components
 
