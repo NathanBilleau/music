@@ -11,6 +11,16 @@ h1 {
   font-weight: 900;
 }
 
+h2 {
+  font-family: 'Montserrat', sans-serif;
+  color: #fff;
+  text-align: center;
+  font-size: 2vh;
+  font-weight: 700;
+  width: 50%;
+  margin:auto;
+}
+
 h1 span {
   font-size: 1.1em;
 }
